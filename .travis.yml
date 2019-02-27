@@ -1,16 +1,18 @@
 language: php
 
+sudo: false
+
 php:
-  - 7.2
+  - 5.6
 
 env:
   global:
     - MODULE_NAME='oeaw'
-    - MODULE_TEST_GROUP='oeaw'
     - DRUPAL_REPO='git://drupalcode.org/project/drupal.git'
-    - DRUPAL_VERSION='8.6'
-    - PHPCS_VERSION='2.0.*@dev'
-    - CODER_VERSION='dev-8.x-2.x'
+    - DRUPAL_VERSION='8.2.x'
+    - PHPCS_VERSION='2.7.*'
+    - CODER_VERSION='8.2.9'
+
 
 
 # Cache Composer & Drush directories.
