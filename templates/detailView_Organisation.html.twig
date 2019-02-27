@@ -1,0 +1,104 @@
+<!-- START : ACDH PERSON template: detailView_Project  -->
+{% if result['image'] %}<div class="res-inside-wrap col-lg-8 ">{% endif%}
+    
+    {%  if result.basicProperties['acdh:hasTitle'] %}
+        <div class="res-property">
+            <span class="res-title">
+                 {%  if result.getAccessRestriction() %}
+                    {{ include('/modules/oeaw/templates/accesRestrictionFormat.html.twig', {'data': result.getAccessRestriction()|lower } ) }}
+                {% endif%}
+                {{ result.basicProperties['acdh:hasTitle'] }}
+            </span>
+        </div>
+    {% endif%} 
+    
+    {%  if result.basicProperties['acdh:hasAlternativeTitle'] %}
+        <div class="res-property">
+            <i class="material-icons">&#xE264;</i>
+            <span class="res-prop-label">Alternative Title:</span> 
+            <span class="res-title">{{ result.basicProperties['acdh:hasAlternativeTitle'] }}</span>
+        </div>
+    {% endif%}
+    
+    {% if result.getType() %}
+        <div class="res-property">
+            <i class="material-icons">&#xE54E;</i>
+            <span class="res-prop-label">Type:</span> 
+            <span class="res-prop-value">
+                <a href="{{ url('<front>') }}discover/&type={{ result.getType() }}/10">{{ result.getType() }}</a>
+            </span>
+        </div>
+    {% endif%}	
+    
+    {%  if result.getNonAcdhIdentifiers() %}
+        {{ include('/modules/oeaw/templates/displayField.html.twig', {'data': result.getNonAcdhIdentifiers(), 'icon': "copyright", 'label': "Identifier(s)" } ) }}
+    {% endif%}
+    
+    {% if result.basicProperties['acdh:hasCountry'] %}
+        {{ include('/modules/oeaw/templates/displayField.html.twig', {'data': result.basicProperties['acdh:hasCountry'], 'icon': "subtitles", 'label': "Country" } ) }}
+    {% endif%}
+
+    {%  if result.basicProperties['acdh:hasRegion'] %}
+        {{ include('/modules/oeaw/templates/displayField.html.twig', {'data': result.basicProperties['acdh:hasRegion'], 'icon': "subtitles", 'label': "Region" } ) }}
+    {% endif%}
+
+    {%  if result.basicProperties['acdh:hasCity'] %}
+        {{ include('/modules/oeaw/templates/displayField.html.twig', {'data': result.basicProperties['acdh:hasCity'], 'icon': "subtitles", 'label': "City" } ) }}
+    {% endif%}
+
+
+    {%  if result.basicProperties['acdh:Postcode'] %}
+        {{ include('/modules/oeaw/templates/displayField.html.twig', {'data': result.basicProperties['acdh:Postcode'], 'icon': "subtitles", 'label': "Postcode" } ) }}
+    {% endif%}
+
+    {%  if result.basicProperties['acdh:hasAddressLine1'] %}
+        {{ include('/modules/oeaw/templates/displayField.html.twig', {'data': result.basicProperties['acdh:hasAddressLine1'], 'icon': "subtitles", 'label': "Address" } ) }}            
+    {% endif%}
+
+    {%  if result.basicProperties['acdh:hasAddressLine2'] %}
+        {{ include('/modules/oeaw/templates/displayField.html.twig', {'data': result.basicProperties['acdh:hasAddressLine2'], 'icon': "subtitles", 'label': "Address" } ) }}
+    {% endif%}
+        
+    {%  if result.basicProperties['acdh:hasEmail'] %}
+        {{ include('/modules/oeaw/templates/displayField.html.twig', {'data': result.basicProperties['acdh:hasEmail'], 'icon': "subtitles", 'label': "Email" } ) }}
+    {% endif%}
+
+    {%  if result.basicProperties['acdh:hasUrl'] %}
+        {{ include('/modules/oeaw/templates/displayField.html.twig', {'data': result.basicProperties['acdh:hasUrl'], 'icon': "subtitles", 'label': "Url" } ) }}
+    {% endif%}
+    
+    <div>
+        <div class="res-act-button">
+            <a href="#" id="showIsMember" data-tableurl="{{ result.getInsideUri() }}">{{ "Get Member(s)"|trans }} </a>
+        </div>
+        <div id="isMemberTableDiv" style="display: none;">
+            <h3 class="single-res-heading">{{ "Member(s)"|trans }}</h3>
+            <table class="isMemberTable table table-striped" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>Value(s)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>    
+    </div>
+        
+    
+    {% if result.extendedProperties %}
+        <h3 class="single-res-heading">{{"Involved In"|trans }}:</h3>
+        
+    {% endif%}        
+        
+    
+{% if result['image'] %}</div>{% endif%}    
+{% if result['image'] %}	
+    <div class="res-inside-wrap col-lg-4 ">	
+        <div class="single-res-thumb">
+            <a data-lightbox="{{ result['resourceTitle'] }}" href="{{ result['image'] }}"><img src="{{ result['image'] }}"></a>
+        </div>
+    </div>
+{% endif%}
+
+<!-- END : ACDH PERSON template: detailView_Project  -->

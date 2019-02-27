@@ -1,0 +1,307 @@
+<link rel="stylesheet" type="text/css" href="/browser/core/themes/classy/css/components/messages.css">
+
+<!--   MAIN DETAIL VIEW -->
+    <input type="hidden" id="insideUri" name="insideUri" value="{{ result.insideUri }}">
+    <input type="hidden" id="accessRestriction" name="accessRestriction" value="{{ result.accessRestriction }}">
+    <div class="loader-div">
+        <div class="loader-bg">
+            <div class="loader"></div>
+        </div>
+    </div>
+    {% if extras['breadcrumb'] %}
+        {% set breadcrumbLength = extras['breadcrumb']|length  %}
+        {% for key, value in extras['breadcrumb'] %}
+            {% if value["rootTitle"] %}
+                {% if breadcrumbLength > 3 and key > 0 and key < breadcrumbLength - 1 %}
+                    {% set breadcrumbTitle = "..." %}
+                {% else %}
+                    {% set breadcrumbTitle = value["rootTitle"]  %}
+                {% endif %} 
+                <a href='/browser/oeaw_detail/{{value["insideUri"]}}' title='{{ value["rootTitle"] }}'>{{  breadcrumbTitle }}</a> 
+                {% if breadcrumbLength -1 > key %}
+                    /  
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+    
+    <h3 class="single-res-heading">
+            {{ "Overview"|trans }}
+        <div class="res-act-button res-act-button-expertview basic">
+            <i class="material-icons">&#xE896;</i>
+            <span>{{ "Switch to Expert-View"|trans }}</span>
+        </div>
+        {% if extras.niceURI %}
+        <div class="res-act-button res-act-button-copy-url" id="res-act-button-copy-url" data-copyuri="{{ extras.niceURI }}">
+                
+            <!--
+            <span href="javascript://" id="copy-url-tooltip" data-toggle="copy-url-tooltip"  data-placement="bottom" data-html="true" data-trigger="manual" title="Copied to Clipboard! URL: {{ extras.niceURI }}">
+                    Copy Resource Link
+            </span>
+            -->
+            <span id="copy-url-button">
+                <i class="material-icons">&#xE157;</i>
+                {{ "Copy Resource Link"|trans }}
+            </span>
+            <span id="copyLinkTextfield-wrapper">
+                <span type="text" name="copyLinkInputBtn" id="copyLinkInputBtn" data-copyuri="{{ extras.niceURI }}">
+                    <i class="material-icons">&#xE14D;</i>
+                </span>
+                <input type="text" name="copyLinkTextfield" id="copyLinkTextfield" value="{{ extras.niceURI }}"/>
+            </span>
+        </div>
+        {% endif %}
+    </h3> 
+    
+    <div class="single-res-overview single-res-overview-basic">
+        {% if extras['specialType']['person'] %}
+            {{ include('/modules/oeaw/templates/detailView_Person.html.twig', {'result': extras['specialType']['person'] } ) }}
+        {% elseif extras['specialType']['project'] %}        
+            {{ include('/modules/oeaw/templates/detailView_Project.html.twig', {'result': extras['specialType']['project'] } ) }}
+        {% elseif extras['specialType']['organisation'] %}
+            {{ include('/modules/oeaw/templates/detailView_Organisation.html.twig', {'result': extras['specialType']['organisation'], 'insideUrl': result['insideUri'] } ) }}
+        {% elseif extras['specialType']['place'] %}
+            {{ include('/modules/oeaw/templates/detailView_Place.html.twig', {'result': extras['specialType']['place'] } ) }}
+        {% elseif extras['specialType']['publication'] %}
+            {{ include('/modules/oeaw/templates/detailView_Publication.html.twig', {'result': extras['specialType']['publication'] } ) }}            
+        {% else  %}
+            {{ include('/modules/oeaw/templates/detailView_Basic.html.twig', {'result': result } ) }}
+        {% endif %}
+    </div>
+	
+	
+    <div class="single-res-overview single-res-overview-expert">
+		
+        {%  if result.title %}
+            <div class="res-property">
+                <span class="res-title">
+                    {%  if result.getAccessRestriction() %}
+                        {{ include('/modules/oeaw/templates/accesRestrictionFormat.html.twig', {'data': result.getAccessRestriction()|lower } ) }}
+                    {% endif%}
+                    {{ result.title }}
+                </span>
+            </div>
+            <br>
+        {% endif%} 
+    
+        <table class="display table table-striped" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th>Property</th>
+                    <th>Value(s)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for key,value in result.table %}
+                    <tr>
+                        <td width='40%'>
+                            {% if extras["tooltip"][key]['desc'] %}
+                                <div style='float:left;'>
+                                    {{ key }}
+                                </div>
+                                <div style='float:right;'>
+                                    <a  class="" data-toggle="tooltip" data-placement="right" data-html="true" title="{{ extras["tooltip"][key]['desc'] }}">
+                                        <i class="material-icons" style='font-size:17px; color: #88DBDF;'>&#xE88F;</i>
+                                    </a>
+                                </div>
+                            {% else %}
+                                {{ key }}
+                            {% endif %}
+                        </td>
+                        <td width='60%'>
+                            {% for val in value %}
+                                {% if (val['title']) and (val['insideUri']) %}
+                                    <a href="/browser/oeaw_detail/{{ val['insideUri'] }}">{{ val['title'] }} </a> <br>
+                                {% elseif val['title'] %}
+                                    <a href="{{ val['uri'] }}">{{ val['title'] }}</a> <br>
+                                {% elseif val['uri'] %}
+                                    <a href="{{ val['uri'] }}">{{ val['uri'] }}</a> <br>
+                                {% else %}
+                                    {{ val }}
+                                {% endif %}
+                           {% endfor %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+            
+        <div class="res-act-button">
+            <a href="#" id="showInverse" data-tableuri="{{result.insideUri}}">{{ "Show Inverse Table"|trans }}</a>
+        </div>
+        
+        <div id="inverseTableDiv" style="display: none;">
+            <h3>{{ "Inverse Data"|trans }}</h3>
+            <table class="inverseTable table table-striped" cellspacing="0" width="100%">
+                <thead>
+                    <tr>                        
+                        <th>Property</th>
+                        <th>Value(s)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+        
+        {% if userid == 1  %}
+            <!--  The ACL rights  -->    
+            <h3 class="single-res-heading">Access Rights</h3>
+            <span class="res-title">Actual users and rights</span>
+            <table class="display table table-striped" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>User</th>           
+                        <th>Rights</th>
+                        <th>Revoke</th>                    
+                    </tr>
+                </thead>
+                <tbody>            
+                {% for acl in result.ACL %}
+                    <tr>
+                        <td>
+                            {{ acl.username }}
+                        </td>
+                        <td>
+                            {{ acl.mode }}
+                        </td>
+                        <td>
+                            {% if userid == 1  %}
+                                {% if result.ACL|length > 1  %}
+                                    <div class="res-act-button">
+                                        <a href="/#" id="delete-rule" data-resourceid="{{ editResData.editUrl }}" data-user="{{ acl.user }}" class="use-ajax" data-dialog-type="modal">
+                                            <i class="material-icons">&#xE872;</i><span>Revoke Rights</span>
+                                        </a>
+                                    </div>
+                                {% else %}
+                                    <span>-</span>
+                                {% endif %}
+                            {% else %}
+                                <span>You cant Revoke Rights</span>
+                            {% endif %}
+                        </td>
+                    </tr>            
+                {% endfor %}
+                </tbody>        
+            </table>
+            <br>
+        {% endif %}
+    </div>	
+
+        
+    {% if extras['dissServ'] %}
+        <div class="res-property">
+            <i class="material-icons">&#xE89F;</i>
+            {% for value in extras['dissServ']['services'] %}
+                <div class="res-act-button">
+                    {% if value['guiUrl'] and value['title'] and value['description']  %}
+                        <a href="{{ value['guiUrl'] }}" title="{{ value['description'] }}" class="dissServAhref" >
+                            <span>{{ value['title']|trans }}</span>
+                        </a>
+                    {% elseif value['returnType'] and value['title'] and value['description']  %}
+                        <a href="{{ extras['dissServ']['identifier'] }}?format={{ value['returnType']|url_encode }}" title="{{ value['description'] }}" class="dissServAhref" >
+                            <span>{{ value['title']|trans }}</span>
+                        </a>
+                    {% elseif value['returnType'] and value['title'] %}
+                        <a href="{{ extras['dissServ']['identifier'] }}?format={{ value['returnType']|url_encode }}" class="dissServAhref" >
+                            <span>{{ value['title']|trans }}</span>
+                        </a>        
+                    {% endif %}    
+                </div>
+            {% endfor %} 
+        </div>
+        <!-- DISS LOGIN FORM START  -->
+        <div id="dissServLoginform">
+            <div id="loginInfo">{{ "Please provide your login credentials"|trans }}</div>
+            <div id="loginErrorDiv"></div>
+            <input type="text" id="username" placeholder="username" name="username">
+            <input type="password" id="password" name="password" placeholder="password">
+            <div>
+                <input type = "submit" id = "dologin" value = "Login">
+                <input type = "submit" id = "cancelLogin" value = "Cancel">
+            </div>
+        </div>
+        <!-- DISS LOGIN FORM END  -->
+    {% endif %}    	
+    
+    {% if (result.table['acdh:hasDescription'] or result.table['acdh:hasSpatialCoverage'] or result.table['acdh:hasNote']) %}
+        <h3 class="single-res-heading">{{ "Summary"|trans }}</h3>
+        
+        {% if result.table['acdh:hasSpatialCoverage'] %}
+            <div class="res-property">
+                <i class="material-icons">info_outline</i>
+                <span class="res-prop-label">{{ "Spatial Coverage"|trans }}:&nbsp;&nbsp;</span>
+                {% if result.table['acdh:hasSpatialCoverage'] is iterable and result.table['acdh:hasSpatialCoverage']|length > 1 %}
+                    <ul>
+                    {% for spatial in result.table['acdh:hasSpatialCoverage'] %}
+                        {% if spatial['insideUri'] and spatial['title'] %}
+                            <li>
+                                <span class="res-prop-value"><a href="/browser/oeaw_detail/{{spatial['insideUri'] }}">{{ spatial['title'] }}</a></span>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                    </ul>
+                {% else %}
+                    {% if result.table['acdh:hasSpatialCoverage'][0]['insideUri'] %}
+                        <span class="res-prop-value"><a href="/browser/oeaw_detail/{{ result.table['acdh:hasSpatialCoverage'][0]['insideUri'] }}">{{ result.table['acdh:hasSpatialCoverage'][0]['title'] }}</a></span>
+                    {% else %}
+                        {% if result.table['acdh:hasSpatialCoverage'][0]['uri']  %}
+                            <span class="res-prop-value"><a href="{{ result.table['acdh:hasSpatialCoverage'][0]['uri'] }}">{{ result.table['acdh:hasSpatialCoverage'][0]['uri'] }}</a></span>
+                        {% else %}
+                            <span class="res-prop-value">{{ result.table['acdh:hasSpatialCoverage'][0] }}</span>
+                        {% endif %}
+                    {% endif %}
+                    
+                {% endif %}
+            </div>
+        {% endif %}
+        
+        {% if result.table['acdh:hasDescription'][0] %}
+            <div class="res-property">
+                <i class="material-icons">info_outline</i>
+                <span class="res-prop-label">{{ "Description"|trans }}:&nbsp;&nbsp;</span>
+                <span class="res-prop-value">{{ result.table['acdh:hasDescription'][0]|nl2br }}</span>
+            </div>
+        {% endif %}
+        
+        {% if result.table['acdh:hasNote'][0] %}
+            <div class="res-property">
+                <i class="material-icons">info_outline</i>
+                <span class="res-prop-label">{{ "Note"|trans }}:&nbsp;&nbsp;</span>
+                <span class="res-prop-value">{{ result.table['acdh:hasNote'][0] }}</span>
+            </div>
+        {% endif %}
+    {% endif%}
+
+    {% if extras.CiteThisWidget %}
+    <h3 class="single-res-heading">{{ "Cite Resource"|trans }}</h3>
+        <div class="cite-selector">
+            <div class="cite-style selected">
+                MLA
+                <a href="javascript://" id="cite-tooltip-mla" data-toggle="cite-tooltip-mla"  data-placement="right" data-html="true" data-trigger="focus"
+                title="&quot;MLA (Modern Language Association) style is most commonly used to write papers and cite sources within the liberal arts and humanities.&quot; <a href='https://owl.english.purdue.edu/owl/resource/747/01/'>Read more...</a>">
+                        <i class="material-icons">&#xE88F;</i>
+                </a>
+            </div>
+        </div>
+
+        <div class="bd-clipboard">
+            <span id="copy-cite-btn" class="btn-clipboard" title="" data-original-title="Copy to clipboard">Copy</span>
+            <span id="copy-cite-btn-confirmation">{{ "Citation information copied"|trans }}!</span>
+        </div>
+        <figure class="highlight">
+            <span class="cite-content active">{{ extras.CiteThisWidget.MLA.string | raw }}</span>
+            <span class="cite-content">{{ extras.CiteThisWidget.APA.string | raw }}</span>
+            <span class="cite-content">{{ extras.CiteThisWidget.CMS.string | raw }}</span>
+        </figure>
+
+    {% endif%}
+    
+    <div class="res-actions" style="padding: 20px;">
+        <div class="res-act-button" style="display: table; margin: 0 auto;">
+            <a href="#" id="getChildView" class="getChildView"><i class="fa fa-angle-down" aria-hidden="true"></i> &nbsp;<b>{{ "Show More"|trans }}</b>&nbsp; <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+        </div>
+    </div>
+   
+   <div id="child-div-content"></div>
+
