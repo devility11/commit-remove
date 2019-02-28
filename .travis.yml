@@ -74,6 +74,7 @@ before_script:
 
   # Install Drupal and enable the required modules (including this one).
   - mysql -e 'create database drupal;'
+  - cd $TRAVIS_BUILD_DIR/drupal && ls
   - cd $TRAVIS_BUILD_DIR/drupal && drush --yes site-install standard --db-url="mysql://root@127.0.0.1/drupal"
 
   # Dependency Modules
