@@ -99,6 +99,7 @@ before_script:
 
 script:
 
+  - composer run-script drupal-phpunit-upgrade
   # Start a web server.
  # - cd $TRAVIS_BUILD_DIR/drupal
   #- drush runserver 127.0.0.1:8080 && 
