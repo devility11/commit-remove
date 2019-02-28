@@ -78,7 +78,7 @@ before_script:
 
   # Dependency Modules
   - cd $TRAVIS_BUILD_DIR && ls
-  - cp -pr $TRAVIS_BUILD_DIR/oeaw $TRAVIS_BUILD_DIR/drupal/modules/oeaw
+  - cp -pr $TRAVIS_BUILD_DIR/oeaw $TRAVIS_BUILD_DIR/drupal/modules/
   - cd $TRAVIS_BUILD_DIR/drupal && drush --yes en $MODULE_NAME
   - cd $TRAVIS_BUILD_DIR/drupal && drush --yes en simpletest
 
