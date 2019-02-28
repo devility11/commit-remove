@@ -45,6 +45,8 @@ before_install:
   
   - composer global require phpunit/phpunit:~7
 
+  - composer global update
+
   # Coder.
   - composer global require drupal/coder:$CODER_VERSION
   - ln -s ~/.composer/vendor/drupal/coder/coder_sniffer/Drupal ~/.composer/vendor/squizlabs/php_codesniffer/CodeSniffer/Standards/
@@ -90,12 +92,15 @@ before_script:
   # Export database variable for kernel tests.
   - export SIMPLETEST_DB=mysql://root:@127.0.0.1/drupal
   
+  # Start a web server.
+  - drush runserver 127.0.0.1:8080 &
+  - until netstat -an 2>/dev/null | grep '8080.*LISTEN'; do true; done
    
 
 script:
 
   # Start a web server.
-  - cd $TRAVIS_BUILD_DIR/drupal
+ # - cd $TRAVIS_BUILD_DIR/drupal
   #- drush runserver 127.0.0.1:8080 && 
   #- phpcs --report=full --standard=Drupal --warning-severity=0 $TRAVIS_BUILD_DIR/drupal/modules/$MODULE_NAME --ignore=bin,*.css,gulpfile.js,libraries,modules/contrib,vendor
   # Run code sniffer.
@@ -109,6 +114,7 @@ script:
   # PHP Unit Tests
   #- cd $TRAVIS_BUILD_DIR/drupal
   - phpunit -c core/phpunit.xml.dist modules/$MODULE_NAME --debug --testdox
+  - phpcs --report=full --standard=Drupal $TRAVIS_BUILD_DIR/drupal/modules/$MODULE_NAME
 
 
   # Behat Tests - RUN THESE LAST OTHERWISE PHPUNIT WILL FAIL BECAUSE OF DEPENDENCY CONFLICTS
