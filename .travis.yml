@@ -3,7 +3,7 @@ language: php
 sudo: false
 
 php:
-  - 7.0
+  - 7.2
 
 env:
   global:
@@ -43,7 +43,7 @@ before_install:
   # Codesniffer.
   - composer global require squizlabs/php_codesniffer:$PHPCS_VERSION
   
-  - composer global require phpunit/phpunit ^7
+  - composer global require phpunit/phpunit:~7
 
   # Coder.
   - composer global require drupal/coder:$CODER_VERSION
