@@ -73,11 +73,11 @@ before_script:
   - mysql -e 'SET @@GLOBAL.wait_timeout=1200'
 
   # Install Drupal and enable the required modules (including this one).
-  - mysql -e 'create database drupal;'
-  - cd $TRAVIS_BUILD_DIR/drupal && ls
+  - mysql -e 'create database drupal;'  
   - cd $TRAVIS_BUILD_DIR/drupal && drush --yes site-install standard --db-url="mysql://root@127.0.0.1/drupal"
 
   # Dependency Modules
+  - cp -r /oeaw $TRAVIS_BUILD_DIR/drupal/modules/oeaw
   - cd $TRAVIS_BUILD_DIR/drupal && drush --yes en $MODULE_NAME
   - cd $TRAVIS_BUILD_DIR/drupal && drush --yes en simpletest
 
