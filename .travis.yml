@@ -96,7 +96,8 @@ script:
 
   # Start a web server.
   - cd $TRAVIS_BUILD_DIR/drupal
-  - drush runserver 127.0.0.1:8080 && phpcs --report=full --standard=Drupal --warning-severity=0 $TRAVIS_BUILD_DIR/drupal/modules/$MODULE_NAME --ignore=bin,*.css,gulpfile.js,libraries,modules/contrib,vendor
+  #- drush runserver 127.0.0.1:8080 && 
+  - phpcs --report=full --standard=Drupal --warning-severity=0 $TRAVIS_BUILD_DIR/drupal/modules/$MODULE_NAME --ignore=bin,*.css,gulpfile.js,libraries,modules/contrib,vendor
   # Run code sniffer.
   # Warnings are disabled until the SMS notifier is ported.
   - 
