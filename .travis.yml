@@ -114,8 +114,8 @@ script:
 
   # PHP Unit Tests
   - cd $TRAVIS_BUILD_DIR/drupal
-  - phpunit -c core/phpunit.xml.dist modules/$MODULE_NAME --debug --testdox
-  - phpcs --report=full --standard=Drupal $TRAVIS_BUILD_DIR/drupal/modules/$MODULE_NAME
+  - phpunit -c core/phpunit.xml.dist modules/$MODULE_NAME
+  #- phpcs --report=full --standard=Drupal $TRAVIS_BUILD_DIR/drupal/modules/$MODULE_NAME
 
 
   # Behat Tests - RUN THESE LAST OTHERWISE PHPUNIT WILL FAIL BECAUSE OF DEPENDENCY CONFLICTS
