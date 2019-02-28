@@ -113,7 +113,7 @@ script:
   #- php core/scripts/run-tests.sh --verbose --color --module $MODULE_NAME --php $(which php) --url http://127.0.0.1:8080
 
   # PHP Unit Tests
-  #- cd $TRAVIS_BUILD_DIR/drupal
+  - cd $TRAVIS_BUILD_DIR/drupal
   - phpunit -c core/phpunit.xml.dist modules/$MODULE_NAME --debug --testdox
   - phpcs --report=full --standard=Drupal $TRAVIS_BUILD_DIR/drupal/modules/$MODULE_NAME
 
