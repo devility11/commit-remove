@@ -9,9 +9,9 @@ env:
   global:
     - MODULE_NAME='oeaw'
     - DRUPAL_REPO='http://git.drupal.org/project/drupal.git'
-    - DRUPAL_VERSION='8.6.10'
-    - PHPCS_VERSION='2.7.*'
-    - CODER_VERSION='8.2.9'
+    - DRUPAL_VERSION='8.6.*'
+    - PHPCS_VERSION='2.*'
+    - CODER_VERSION='8.*'
 
 
 
@@ -44,13 +44,13 @@ before_install:
   - composer global require squizlabs/php_codesniffer:$PHPCS_VERSION
   
   - composer global require phpunit/phpunit ^6.5
-
-  - composer global update
   
   # Coder.
   - composer global require drupal/coder:$CODER_VERSION
   - ln -s ~/.composer/vendor/drupal/coder/coder_sniffer/Drupal ~/.composer/vendor/squizlabs/php_codesniffer/CodeSniffer/Standards/
 
+  - composer global update
+  
   # Ensure the PHP environment is ready.
   - phpenv rehash
   
