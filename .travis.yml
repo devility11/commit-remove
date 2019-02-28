@@ -77,7 +77,7 @@ before_script:
   - cd $TRAVIS_BUILD_DIR/drupal && drush --yes site-install standard --db-url="mysql://root@127.0.0.1/drupal"
 
   # Dependency Modules
-  - cd /oeaw && ls
+  - cd $TRAVIS_BUILD_DIR && ls
   - cp -pr $HOME/oeaw $TRAVIS_BUILD_DIR/drupal/modules/oeaw
   - cd $TRAVIS_BUILD_DIR/drupal && drush --yes en $MODULE_NAME
   - cd $TRAVIS_BUILD_DIR/drupal && drush --yes en simpletest
