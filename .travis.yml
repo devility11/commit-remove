@@ -49,6 +49,8 @@ before_install:
 
   # Ensure the PHP environment is ready.
   - phpenv rehash
+  
+  - composer run-script drupal-phpunit-upgrade
 
 install:
   - git clone $DRUPAL_REPO
@@ -92,7 +94,7 @@ script:
 
   # Start a web server.
   - cd $TRAVIS_BUILD_DIR/drupal
-  - drush runserver 127.0.0.1:8080 &
+  - drush runserver 127.0.0.1:8080 
 
   # Run code sniffer.
   # Warnings are disabled until the SMS notifier is ported.
