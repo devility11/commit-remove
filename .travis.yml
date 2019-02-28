@@ -89,12 +89,12 @@ before_script:
 
   # Export database variable for kernel tests.
   - export SIMPLETEST_DB=mysql://root:@127.0.0.1/drupal
-
-script:
-
-  # Start a web server.
+  
+   # Start a web server.
   - cd $TRAVIS_BUILD_DIR/drupal
   - drush runserver 127.0.0.1:8080 
+
+script:
 
   # Run code sniffer.
   # Warnings are disabled until the SMS notifier is ported.
@@ -110,6 +110,6 @@ script:
 
 
   # Behat Tests - RUN THESE LAST OTHERWISE PHPUNIT WILL FAIL BECAUSE OF DEPENDENCY CONFLICTS
-  - cd $TRAVIS_BUILD_DIR/drupal/modules/$MODULE_NAME
-  - composer install
-  - vendor/bin/behat --config tests/behat/behat.yml
+  #- cd $TRAVIS_BUILD_DIR/drupal/modules/$MODULE_NAME
+  #- composer install
+  #- vendor/bin/behat --config tests/behat/behat.yml
