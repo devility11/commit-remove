@@ -43,7 +43,7 @@ before_install:
   # Codesniffer.
   - composer global require squizlabs/php_codesniffer:$PHPCS_VERSION
   
-  - composer global require phpunit/phpunit
+  - composer global require phpunit/phpunit ^7
 
   # Coder.
   - composer global require drupal/coder:$CODER_VERSION
