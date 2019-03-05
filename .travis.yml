@@ -44,6 +44,7 @@ before_install:
   - composer global require squizlabs/php_codesniffer:$PHPCS_VERSION
   
   - composer global require phpunit/phpunit ^6.5
+  - composer global require acdh-oeaw/repo-php-util
   
   # Coder.
   - composer global require drupal/coder:$CODER_VERSION
@@ -111,10 +112,10 @@ script:
   #- php core/scripts/run-tests.sh --verbose --color --module $MODULE_NAME --php $(which php) --url http://127.0.0.1:8080
 
   # PHP Unit Tests  
-  - $HOME/.composer/vendor/bin/phpunit modules/oeaw/tests/src/Unit/Model/OeawResourceChildrenTest.php
-  - $HOME/.composer/vendor/bin/phpunit modules/oeaw/tests/src/Unit/Model/OeawResourceCustomDataTest.php
-  - $HOME/.composer/vendor/bin/phpunit modules/oeaw/tests/src/Unit/Model/OeawResourceTest.php
-  - $HOME/.composer/vendor/bin/phpunit modules/oeaw/tests/src/Unit/OeawFunctionsTest.php
+  - $HOME/.composer/vendor/bin/phpunit -c core/phpunit.xml.dist modules/oeaw/tests/src/Unit/Model/OeawResourceChildrenTest.php
+  - $HOME/.composer/vendor/bin/phpunit -c core/phpunit.xml.dist modules/oeaw/tests/src/Unit/Model/OeawResourceCustomDataTest.php
+  - $HOME/.composer/vendor/bin/phpunit -c core/phpunit.xml.dist modules/oeaw/tests/src/Unit/Model/OeawResourceTest.php
+  - $HOME/.composer/vendor/bin/phpunit -c core/phpunit.xml.dist modules/oeaw/tests/src/Unit/OeawFunctionsTest.php
 
-  - phpcs --report=full --standard=Drupal --warning-severity=0 $TRAVIS_BUILD_DIR/drupal/modules/oeaw
+  #- phpcs --report=full --standard=Drupal --warning-severity=0 $TRAVIS_BUILD_DIR/drupal/modules/oeaw
   

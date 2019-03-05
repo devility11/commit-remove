@@ -15,7 +15,7 @@ use acdhOeaw\util\RepoConfig as RC;
 class OeawResourceChildrenTest extends UnitTestCase {
     
     static private $arrayObject;
-    private $cfgDir = '/var/www/html/modules/oeaw/config.ini';
+    private $cfgDir = '/var/www/html/modules/oeaw/config.ini.sample';
     
     /**
     * Shadow t() system call.
