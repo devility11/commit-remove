@@ -7,7 +7,7 @@ use Drupal\Tests\UnitTestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use acdhOeaw\util\RepoConfig as RC;
 
-require_once $_SERVER['HOME'].'/html/vendor/autoload.php';
+require_once '/var/www/html/vendor/autoload.php';
 
 /**
  * @coversDefaultClass \Drupal\oeaw\Model\OeawResourceChildren
