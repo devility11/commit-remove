@@ -83,7 +83,8 @@ before_script:
 
   # Dependency Modules
   - cd $TRAVIS_BUILD_DIR && ls
-  - cp -pr $TRAVIS_BUILD_DIR/oeaw $TRAVIS_BUILD_DIR/drupal/modules/
+  - mkdir $TRAVIS_BUILD_DIR/drupal/modules/oeaw/
+  - cp -pr $TRAVIS_BUILD_DIR/ $TRAVIS_BUILD_DIR/drupal/modules/oeaw/
   - cd $TRAVIS_BUILD_DIR/drupal && drush --yes en $MODULE_NAME
   - cd $TRAVIS_BUILD_DIR/drupal && drush --yes en simpletest
 
@@ -102,7 +103,7 @@ script:
 
   - composer run-script drupal-phpunit-upgrade
   
-  - php -f modules/oeaw/tests/src/Unit/urls.php
+  
   #- phpcs --report=full --standard=Drupal --warning-severity=0 $TRAVIS_BUILD_DIR/drupal/modules/$MODULE_NAME --ignore=bin,*.css,gulpfile.js,libraries,modules/contrib,vendor
   # Run code sniffer.
   # Warnings are disabled until the SMS notifier is ported.

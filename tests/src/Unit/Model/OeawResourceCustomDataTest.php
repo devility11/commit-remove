@@ -15,7 +15,7 @@ use acdhOeaw\util\RepoConfig as RC;
 class OeawResourceCustomDataTest extends UnitTestCase {
     
     static private $arrayObject;
-    private $cfgDir = '/home/travis/build/devility11/commit-remove/drupal/modules/oeaw/config.unittest.ini';
+    private $cfgDir;
     
     /**
     * Shadow t() system call.
@@ -30,6 +30,7 @@ class OeawResourceCustomDataTest extends UnitTestCase {
     }
     
     protected function setUp() {
+        $this->cfgDir = $_SERVER['TRAVIS_BUILD_DIR']."/drupal/modules/oeaw/config.unittest.ini";
         //we need to setup the configfactory with the "oeaw.settings" config, because of
         // the multilanguage support.
          $this->config = $this->getMockBuilder('\Drupal\Core\Config\ImmutableConfig')
@@ -52,10 +53,7 @@ class OeawResourceCustomDataTest extends UnitTestCase {
     }
     
     
-    static public function setUpBeforeClass() {
-        
-        echo $_SERVER['PHP_SELF'];
-        echo $_SERVER['DOCUMENT_ROOT'];
+    static public function setUpBeforeClass() {        
         self::$arrayObject = new \ArrayObject();
         self::$arrayObject->offsetSet('uri', 'http://localhost');
         self::$arrayObject->offsetSet('title', 'my title');
