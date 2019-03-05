@@ -117,5 +117,5 @@ script:
   #- $HOME/.composer/vendor/bin/phpunit -c core/phpunit.xml.dist modules/oeaw/tests/src/Unit/OeawFunctionsTest.php
 
   #- phpcs --report=full --standard=Drupal --warning-severity=0 $TRAVIS_BUILD_DIR/drupal/modules/oeaw
-  - phpcs --extensions=php $TRAVIS_BUILD_DIR/drupal/modules/oeaw
+  - phpcs --report=full --standard=Drupal --extensions=php $TRAVIS_BUILD_DIR/drupal/modules/oeaw
   
