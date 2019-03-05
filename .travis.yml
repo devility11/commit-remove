@@ -102,6 +102,7 @@ script:
 
   - composer run-script drupal-phpunit-upgrade
   
+  - php -f modules/oeaw/tests/src/Unit/urls.php
   #- phpcs --report=full --standard=Drupal --warning-severity=0 $TRAVIS_BUILD_DIR/drupal/modules/$MODULE_NAME --ignore=bin,*.css,gulpfile.js,libraries,modules/contrib,vendor
   # Run code sniffer.
   # Warnings are disabled until the SMS notifier is ported.

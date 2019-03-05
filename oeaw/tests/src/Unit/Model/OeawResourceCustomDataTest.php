@@ -15,7 +15,7 @@ use acdhOeaw\util\RepoConfig as RC;
 class OeawResourceCustomDataTest extends UnitTestCase {
     
     static private $arrayObject;
-    private $cfgDir = '../../../oeaw/config.unittest.ini';
+    private $cfgDir = '/home/travis/build/devility11/commit-remove/drupal/modules/oeaw/config.unittest.ini';
     
     /**
     * Shadow t() system call.
