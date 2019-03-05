@@ -53,6 +53,9 @@ class OeawResourceCustomDataTest extends UnitTestCase {
     
     
     static public function setUpBeforeClass() {
+        echo $_ENV['HOME'];
+        var_dump($_POST['PATH']);
+        var_dump($_SERVER);
         self::$arrayObject = new \ArrayObject();
         self::$arrayObject->offsetSet('uri', 'http://localhost');
         self::$arrayObject->offsetSet('title', 'my title');
