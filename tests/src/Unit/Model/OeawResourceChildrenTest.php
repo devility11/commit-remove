@@ -15,7 +15,7 @@ use acdhOeaw\util\RepoConfig as RC;
 class OeawResourceChildrenTest extends UnitTestCase {
     
     static private $arrayObject;
-    private $cfgDir = '/home/travis/build/devility11/commit-remove/drupal/modules/oeaw/config.unittest.ini';
+    private $cfgDir;
     
     /**
     * Shadow t() system call.
@@ -30,6 +30,7 @@ class OeawResourceChildrenTest extends UnitTestCase {
     }
     
     protected function setUp() {
+        $this->cfgDir = $_SERVER['TRAVIS_BUILD_DIR']."/drupal/modules/oeaw/config.unittest.ini";
         //we need to setup the configfactory with the "oeaw.settings" config, because of
         // the multilanguage support.
          $this->config = $this->getMockBuilder('\Drupal\Core\Config\ImmutableConfig')

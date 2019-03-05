@@ -17,13 +17,14 @@ include('/var/www/html/drupal/modules/oeaw/src/OeawFunctions.php');
 class OeawFunctions extends \PHPUnit\Framework\TestCase {
  
     private $oeawFunctions;
-    private $cfgDir = '/home/vagrant/drupal/modules/oeaw/config.ini.sample';
+    private $cfgDir;
     private $acdhId = 'https://id.acdh.oeaw.ac.at/myidentifier';
     private $acdhUUID = 'https://id.acdh.oeaw.ac.at/uuid/myidentifier';
     private $pid = 'http://hdl.handle.net/21.11115/0000-0000';
     
     
     protected function setUp() {
+        $this->cfgDir = $_SERVER['TRAVIS_BUILD_DIR']."/drupal/modules/oeaw/config.unittest.ini";
         $this->oeawFunctions = new \Drupal\oeaw\OeawFunctions($this->cfgDir);
     }
     
