@@ -15,7 +15,7 @@ use acdhOeaw\util\RepoConfig as RC;
 class OeawResourceChildrenTest extends UnitTestCase {
     
     static private $arrayObject;
-    private $cfgDir = '/var/www/html/modules/oeaw/config.ini.sample';
+    private $cfgDir = '/home/travis/build/devility11/commit-remove/drupal/modules/oeaw/config.unittest.ini';
     
     /**
     * Shadow t() system call.
