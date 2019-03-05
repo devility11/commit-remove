@@ -5,12 +5,9 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\oeaw\Unit;
 
-
-require_once $_SERVER['HOME'].'/drupal/vendor/autoload.php';
-
 use PHPUnit\Framework\TestCase;
 
-include($_SERVER['HOME'].'/drupal/modules/oeaw/src/OeawFunctions.php');
+include('/var/www/html/drupal/modules/oeaw/src/OeawFunctions.php');
 
 /**
  * @coversDefaultClass \Drupal\oeaw\OeawFunctions
