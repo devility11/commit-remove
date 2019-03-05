@@ -59,7 +59,6 @@ install:
   - git clone $DRUPAL_REPO
   - cd drupal && composer install && cd -
   - mkdir -p drupal/modules/$MODULE_NAME
-
   # switched to doing it this way because it makes local testing a bit easier.
   # create symbolic links to all of the files/folders in the module directory
   - for d in $(pwd)/*; do ln -s "$d" "drupal/modules/$MODULE_NAME"; done
@@ -82,8 +81,7 @@ before_script:
   - cd $TRAVIS_BUILD_DIR/drupal && drush --yes site-install standard --db-url="mysql://root@127.0.0.1/drupal"
 
   # Dependency Modules
-  - cd $TRAVIS_BUILD_DIR && ls  
-  - cp -pr $TRAVIS_BUILD_DIR/* $TRAVIS_BUILD_DIR/drupal/modules/oeaw
+  #- cp -pr $TRAVIS_BUILD_DIR/* $TRAVIS_BUILD_DIR/drupal/modules/oeaw
   - cd $TRAVIS_BUILD_DIR/drupal && drush --yes en $MODULE_NAME
   - cd $TRAVIS_BUILD_DIR/drupal && drush --yes en simpletest
 
