@@ -7,14 +7,14 @@ namespace Drupal\Tests\oeaw\Unit;
 
 use PHPUnit\Framework\TestCase;
 
-include('/var/www/html/drupal/modules/oeaw/src/OeawFunctions.php');
+//include($_SERVER['TRAVIS_BUILD_DIR'].'/drupal/modules/oeaw/src/OeawFunctions.php');
 
 /**
  * @coversDefaultClass \Drupal\oeaw\OeawFunctions
  * @group oeaw
  */
 
-class OeawFunctions extends \PHPUnit\Framework\TestCase {
+class OeawFunctionsTest extends \PHPUnit\Framework\TestCase {
  
     private $oeawFunctions;
     private $cfgDir;
