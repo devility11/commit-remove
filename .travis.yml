@@ -122,7 +122,7 @@ script:
 
 
 after_success:
-  - phpcbf --no-patch --standard=PSR2 $TRAVIS_BUILD_DIR/drupal/modules/oeaw/src/ 
+  - phpcbf --patch --standard=PSR2 $TRAVIS_BUILD_DIR/drupal/modules/oeaw/src/ 
   #- patch -p0 -ui $TRAVIS_BUILD_DIR/drupal/modules/$MODULE_NAME_diff/oeaw/src/
 
 deploy:
