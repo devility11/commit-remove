@@ -1,6 +1,6 @@
 language: php
 
-sudo: false
+sudo: true
 
 php:
   - 7.2
@@ -115,10 +115,23 @@ script:
   - $HOME/.composer/vendor/bin/phpunit -c core/phpunit.xml.dist modules/oeaw/tests/src/Unit/Model/OeawResourceChildrenTest.php
   - $HOME/.composer/vendor/bin/phpunit -c core/phpunit.xml.dist modules/oeaw/tests/src/Unit/Model/OeawResourceCustomDataTest.php
   - $HOME/.composer/vendor/bin/phpunit -c core/phpunit.xml.dist modules/oeaw/tests/src/Unit/Model/OeawResourceTest.php
-  - $HOME/.composer/vendor/bin/phpunit -c core/phpunit.xml.dist modules/oeaw/tests/src/Unit/OeawFunctionsTest.php
+  #- $HOME/.composer/vendor/bin/phpunit -c core/phpunit.xml.dist modules/oeaw/tests/src/Unit/OeawFunctionsTest.php
 
   #- phpcs --report=full --standard=Drupal --warning-severity=0 $TRAVIS_BUILD_DIR/drupal/modules/oeaw
   #- phpcs --report=diff=$TRAVIS_BUILD_DIR/drupal/modules/$MODULE_NAME_diff --standard=Drupal $TRAVIS_BUILD_DIR/drupal/modules/oeaw/src/
-  - phpcbf $TRAVIS_BUILD_DIR/drupal/modules/oeaw/src/
+
+
+after_success:
+  - phpcbf --no-patch --standard=Drupal $TRAVIS_BUILD_DIR/drupal/modules/oeaw/src/ 
   #- patch -p0 -ui $TRAVIS_BUILD_DIR/drupal/modules/$MODULE_NAME_diff/oeaw/src/
-  
+
+deploy:
+    provider: pages
+    skip-cleanup: true
+    local-dir: $TRAVIS_BUILD_DIR/drupal/modules/oeaw/
+    github-token: $GITHUB_TOKEN
+    keep-history: true
+    on:
+        branch: master
+        
+        
