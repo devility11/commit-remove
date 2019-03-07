@@ -101,8 +101,7 @@ script:
 
   - composer run-script drupal-phpunit-upgrade
   
-  
-  #- phpcs --report=full --standard=Drupal --warning-severity=0 $TRAVIS_BUILD_DIR/drupal/modules/$MODULE_NAME --ignore=bin,*.css,gulpfile.js,libraries,modules/contrib,vendor
+  - phpcs --report=full --standard=Drupal --warning-severity=0 $TRAVIS_BUILD_DIR/drupal/modules/$MODULE_NAME --ignore=bin,*.css,gulpfile.js,libraries,modules/contrib,vendor
   # Run code sniffer.
   # Warnings are disabled until the SMS notifier is ported.
   #- 
@@ -119,7 +118,6 @@ script:
 
   - phpcs --report=full --standard=PSR2 --warning-severity=0 $TRAVIS_BUILD_DIR/drupal/modules/oeaw
   #- phpcs --report=diff=$TRAVIS_BUILD_DIR/drupal/modules/$MODULE_NAME_diff --standard=Drupal $TRAVIS_BUILD_DIR/drupal/modules/oeaw/src/
-
 
 after_success:
   - phpcbf --patch --standard=PSR2 $TRAVIS_BUILD_DIR/drupal/modules/oeaw/src/ 
