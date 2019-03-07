@@ -117,12 +117,12 @@ script:
   - $HOME/.composer/vendor/bin/phpunit -c core/phpunit.xml.dist modules/oeaw/tests/src/Unit/Model/OeawResourceTest.php
   #- $HOME/.composer/vendor/bin/phpunit -c core/phpunit.xml.dist modules/oeaw/tests/src/Unit/OeawFunctionsTest.php
 
-  #- phpcs --report=full --standard=Drupal --warning-severity=0 $TRAVIS_BUILD_DIR/drupal/modules/oeaw
+  - phpcs --report=full --standard=PSR2 --warning-severity=0 $TRAVIS_BUILD_DIR/drupal/modules/oeaw
   #- phpcs --report=diff=$TRAVIS_BUILD_DIR/drupal/modules/$MODULE_NAME_diff --standard=Drupal $TRAVIS_BUILD_DIR/drupal/modules/oeaw/src/
 
 
 after_success:
-  - phpcbf --no-patch --standard=PSR2 --extensions=php,module,inc,install,test,profle,theme,css,info,txt,md  $TRAVIS_BUILD_DIR/drupal/modules/oeaw/src/ 
+  - phpcbf --no-patch --standard=PSR2 $TRAVIS_BUILD_DIR/drupal/modules/oeaw/src/ 
   #- patch -p0 -ui $TRAVIS_BUILD_DIR/drupal/modules/$MODULE_NAME_diff/oeaw/src/
 
 deploy:
