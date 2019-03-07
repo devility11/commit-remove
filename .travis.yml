@@ -122,7 +122,7 @@ script:
 
 
 after_success:
-  - phpcbf --no-patch --standard=Drupal $TRAVIS_BUILD_DIR/drupal/modules/oeaw/src/ 
+  - phpcbf --no-patch --standard=Drupal --extensions=php,module,inc,install,test,profle,theme,css,info,txt,md  $TRAVIS_BUILD_DIR/drupal/modules/oeaw/src/ 
   #- patch -p0 -ui $TRAVIS_BUILD_DIR/drupal/modules/$MODULE_NAME_diff/oeaw/src/
 
 deploy:
