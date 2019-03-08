@@ -120,7 +120,7 @@ script:
   #- phpcs --report=diff=$TRAVIS_BUILD_DIR/drupal/modules/$MODULE_NAME_diff --standard=Drupal $TRAVIS_BUILD_DIR/drupal/modules/oeaw/src/
 
 after_success:
-  - phpcbf --patch --standard=Drupal $TRAVIS_BUILD_DIR/drupal/modules/oeaw/src/ 
+  - phpcbf --no-patch --standard=Drupal $TRAVIS_BUILD_DIR/drupal/modules/oeaw/src/ 
   #- patch -p0 -ui $TRAVIS_BUILD_DIR/drupal/modules/$MODULE_NAME_diff/oeaw/src/
 
 deploy:
