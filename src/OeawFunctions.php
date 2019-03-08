@@ -2,39 +2,22 @@
 
 namespace Drupal\oeaw;
 
-use Drupal\Core\Url;
 use Drupal\Core\Ajax\AjaxResponse;
-use Drupal\Core\Ajax\ChangedCommand;
-use Drupal\Core\Ajax\CssCommand;
 use Drupal\Core\Ajax\HtmlCommand;
 use Drupal\Core\Entity\Exception;
 use Drupal\Core\Ajax\InvokeCommand;
-use Drupal\Component\Render\MarkupInterface;
-use Drupal\Core\Cache\CacheBackendInterface;
 
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-
-
-use Drupal\oeaw\Model\OeawStorage;
-use Drupal\oeaw\Model\OeawResource;
-use Drupal\oeaw\Model\OeawResourceChildren;
+use Drupal\oeaw\Model\OeawStorage as OeawStorage;
+use Drupal\oeaw\Model\OeawResource as OeawResource;
+use Drupal\oeaw\Model\OeawResourceChildren as ResourceChildren;
 use Drupal\oeaw\ConfigConstants as CC;
 use Drupal\oeaw\Helper\Helper;
-use Drupal\oeaw\Model\OeawCustomSparql;
 
 use acdhOeaw\fedora\dissemination\Service;
 use acdhOeaw\fedora\Fedora;
 use acdhOeaw\fedora\FedoraResource;
-use acdhOeaw\fedora\acl\WebAclRule as WAR;
 use acdhOeaw\util\RepoConfig as RC;
-use EasyRdf\Graph;
-use EasyRdf\Resource;
+use EasyRdf\Resource as EasyRdfResource;
 
 /**
  * Description of OeawFunctions
@@ -51,9 +34,9 @@ class OeawFunctions {
      */
     public function __construct($cfg = null){
         if($cfg == null){
-            \acdhOeaw\util\RepoConfig::init($_SERVER["DOCUMENT_ROOT"].'/modules/oeaw/config.ini');
+            RC::init($_SERVER["DOCUMENT_ROOT"].'/modules/oeaw/config.ini');
         }else {
-            \acdhOeaw\util\RepoConfig::init($cfg);
+            RC::init($cfg);
         }
         $this->langConf = \Drupal::config('oeaw.settings');
         //$this->langConf = \Drupal::service('config.factory')->getEditable('oeaw.settings');
@@ -773,7 +756,7 @@ class OeawFunctions {
      * @return \Drupal\oeaw\Model\OeawResourceCustomData
      * @throws \ErrorException
      */
-    public function createCustomDetailViewTemplateData(\Drupal\oeaw\Model\OeawResource $data, string $type): \Drupal\oeaw\Model\OeawResourceCustomData {
+    public function createCustomDetailViewTemplateData(OeawResource $data, string $type): OeawResourceCustomData {
         
         //check the table data in the object that we have enough data :)
         if(count($data->getTable()) > 0){
@@ -799,7 +782,7 @@ class OeawFunctions {
             
             try {
                 //get the obj
-                $obj = new \Drupal\oeaw\Model\OeawResourceCustomData($arrayObject);
+                $obj = new OeawResourceCustomData($arrayObject);
                 $obj->setupBasicExtendedData($data);
             } catch (\ErrorException $ex) {
                 throw new \ErrorException($ex->getMessage());
@@ -838,7 +821,7 @@ class OeawFunctions {
      * @param string $property - shortcur property - f.e.: acdh:hasCreator
      * @return string - a string with the available data
      */
-    private function getCiteWidgetData(\Drupal\oeaw\Model\OeawResource $data, string $property): string {
+    private function getCiteWidgetData(OeawResource $data, string $property): string {
         $result = "";
         
         if(count((array)$data) > 0){
@@ -883,7 +866,7 @@ class OeawFunctions {
      * @param array $resourceData Delivers the properties of the resource
      * @return array $widget Returns the cite-this widget as HTML
      */
-    public function createCiteThisWidget(\Drupal\oeaw\Model\OeawResource $resourceData): array {
+    public function createCiteThisWidget(OeawResource $resourceData): array {
         
         $content = [];
 
@@ -1319,7 +1302,7 @@ class OeawFunctions {
             if(isset($d['uri'])){
                 $arrayObject->offsetSet('typeName', explode(RC::get('fedoraVocabsNamespace'), $d['types'])[1]);
             }
-            $result[] = new \Drupal\oeaw\Model\OeawResourceChildren($arrayObject);
+            $result[] = new ResourceChildren($arrayObject);
         }
 
         return $result;
@@ -1339,7 +1322,7 @@ class OeawFunctions {
      * @param Resource $data
      * @return array
      */
-    public function createDetailViewTable(\EasyRdf\Resource $data): \Drupal\oeaw\Model\OeawResource {
+    public function createDetailViewTable(EasyRdfResource $data): OeawResource {
         $result = array();
         $arrayObject = new \ArrayObject();
         $OeawStorage = new OeawStorage();
@@ -1517,7 +1500,7 @@ class OeawFunctions {
         if(isset($result['image'])){ $arrayObject->offsetSet('imageUrl', $result['image']); }
         
         try {
-            $obj = new \Drupal\oeaw\Model\OeawResource($arrayObject);
+            $obj = new OeawResource($arrayObject);
         } catch (ErrorException $ex) {
             throw new \ErrorException( t('Init').' '.t('Error').' : OeawResource', 0);
         }
@@ -1833,7 +1816,7 @@ class OeawFunctions {
      * @return array with children array, type and currentpage
      * 
      */
-    public function generateChildViewData(array $identifiers, \Drupal\oeaw\Model\OeawResource $data, array $properties): array{
+    public function generateChildViewData(array $identifiers, OeawResource $data, array $properties): array{
         
         $result = array();
         if( (count($identifiers) == 0 ) || (count((array)$data) == 0 ) || (count($properties) == 0) ){
