@@ -133,4 +133,8 @@ deploy:
     on:
         branch: master
         
-        
+ignore:
+    - $TRAVIS_BUILD_DIR/drupal/modules/oeaw/.gitignore
+    - $TRAVIS_BUILD_DIR/drupal/modules/oeaw/.travis.yml
+    - .gitignore
+    - .travis.yml
