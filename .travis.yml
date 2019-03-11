@@ -126,8 +126,8 @@ after_success:
   #- phpcbf --no-patch --standard=Drupal $TRAVIS_BUILD_DIR/drupal/modules/oeaw/src/ 
   #- patch -p0 -ui $TRAVIS_BUILD_DIR/drupal/modules/$MODULE_NAME_diff/oeaw/src/
 
-after_deploy:
-   - mv  $TRAVIS_BUILD_DIR/drupal/modules/oeaw/misc/.gitignore  $TRAVIS_BUILD_DIR/drupal/modules/oeaw/.gitignore
+before_deploy:
+   - cp $TRAVIS_BUILD_DIR/drupal/modules/oeaw/misc/.gitignore  $TRAVIS_BUILD_DIR/drupal/modules/oeaw/.gitignore
 
 deploy:
     provider: pages
