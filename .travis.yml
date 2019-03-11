@@ -127,19 +127,20 @@ after_success:
   #- patch -p0 -ui $TRAVIS_BUILD_DIR/drupal/modules/$MODULE_NAME_diff/oeaw/src/
 
 before_deploy:
-   #- cp $TRAVIS_BUILD_DIR/drupal/modules/oeaw/src/misc/.gitignore $TRAVIS_BUILD_DIR/drupal/modules/oeaw/src/.gitignore
+   - cp -R $TRAVIS_BUILD_DIR/drupal/modules/oeaw/src/misc/.gitignore $TRAVIS_BUILD_DIR/drupal/modules/oeaw/src/.gitignore
 
 deploy:
     provider: pages
     skip-cleanup: true
-    local-dir: $TRAVIS_BUILD_DIR/drupal/modules/oeaw
+    local-dir: $TRAVIS_BUILD_DIR/drupal/modules/oeaw/
     github-token: $GITHUB_TOKEN
     keep-history: true    
     on:
         branch: master
         
-#ignore_changes:
-#    - $TRAVIS_BUILD_DIR/drupal/modules/oeaw/.gitignore
+ignore_changes:
+    - $TRAVIS_BUILD_DIR/drupal/modules/oeaw/.gitignore
+    - modules/oeaw/.gitignore
 #    - $TRAVIS_BUILD_DIR/drupal/modules/oeaw/.travis.yml
 #    - .gitignore
 #    - .travis.yml
