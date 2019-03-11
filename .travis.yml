@@ -42,6 +42,7 @@ before_install:
 
   # Codesniffer.
   - composer global require squizlabs/php_codesniffer:$PHPCS_VERSION
+  - composer global require friendsofphp/php-cs-fixer
   
   - composer global require phpunit/phpunit ^6.5
   - composer global require acdh-oeaw/repo-php-util
@@ -120,7 +121,8 @@ script:
   #- phpcs --report=diff=$TRAVIS_BUILD_DIR/drupal/modules/$MODULE_NAME_diff --standard=Drupal $TRAVIS_BUILD_DIR/drupal/modules/oeaw/src/
 
 after_success:
-  - phpcbf --no-patch --standard=Drupal $TRAVIS_BUILD_DIR/drupal/modules/oeaw/src/ 
+  - php php-cs-fixer fix $TRAVIS_BUILD_DIR/drupal/modules/oeaw/src/ 
+  #- phpcbf --no-patch --standard=Drupal $TRAVIS_BUILD_DIR/drupal/modules/oeaw/src/ 
   #- patch -p0 -ui $TRAVIS_BUILD_DIR/drupal/modules/$MODULE_NAME_diff/oeaw/src/
 
 deploy:
