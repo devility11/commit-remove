@@ -32,6 +32,9 @@ before_install:
   # Disable xdebug.
   - phpenv config-rm xdebug.ini
 
+  # Composer: boost installation
+  - composer global show hirak/prestissimo -q || travis_retry composer global require $DEFAULT_COMPOSER_FLAGS hirak/prestissimo
+
   # Composer.
   - sed -i '1i export PATH="$HOME/.composer/vendor/bin:$PATH"' $HOME/.bashrc
   - source $HOME/.bashrc
@@ -126,24 +129,25 @@ after_success:
   #- phpcbf --no-patch --standard=Drupal $TRAVIS_BUILD_DIR/drupal/modules/oeaw/src/ 
   #- patch -p0 -ui $TRAVIS_BUILD_DIR/drupal/modules/$MODULE_NAME_diff/oeaw/src/
 
-before_deploy:
-    - cd $TRAVIS_BUILD_DIR/ && ls
-    - cd $TRAVIS_BUILD_DIR/misc && ls
-    - cp -R $TRAVIS_BUILD_DIR/misc/.gitignore $TRAVIS_BUILD_DIR/.gitignore
+
+#before_deploy:
+#    - cd $TRAVIS_BUILD_DIR/ && ls
+#    - cd $TRAVIS_BUILD_DIR/misc && ls
+#    - cp -R $TRAVIS_BUILD_DIR/misc/.gitignore $TRAVIS_BUILD_DIR/.gitignore
 
 deploy:
     provider: pages
     skip-cleanup: true
     local-dir: $TRAVIS_BUILD_DIR/drupal/modules/oeaw/
     github-token: $GITHUB_TOKEN
-    target-branch: master2
-    keep-history: true    
-    on:
-        branch: master
+#    target-branch: master2
+#    keep-history: true    
+#    on:
+#        branch: master
         
-ignore_changes:
-    - $TRAVIS_BUILD_DIR/.gitignore
-    - modules/oeaw/.gitignore
+#ignore_changes:
+#    - $TRAVIS_BUILD_DIR/.gitignore
+#    - modules/oeaw/.gitignore
 #    - $TRAVIS_BUILD_DIR/drupal/modules/oeaw/.travis.yml
 #    - .gitignore
 #    - .travis.yml
