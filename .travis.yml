@@ -127,7 +127,7 @@ after_success:
   #- patch -p0 -ui $TRAVIS_BUILD_DIR/drupal/modules/$MODULE_NAME_diff/oeaw/src/
 
 before_deploy:
-   - mv misc/.gitignore .gitignore
+   - mv  $TRAVIS_BUILD_DIR/drupal/modules/oeaw/misc/.gitignore  $TRAVIS_BUILD_DIR/drupal/modules/oeaw/.gitignore
 
 deploy:
     provider: pages
