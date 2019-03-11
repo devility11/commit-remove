@@ -125,6 +125,8 @@ script:
 
 after_success:
    - $HOME/.composer/vendor/bin/php-cs-fixer fix $TRAVIS_BUILD_DIR/drupal/modules/oeaw/src/
+   - cd $TRAVIS_BUILD_DIR/drupal/modules/oeaw/src/ && git add -A && git commit -m "test commitom" 
+   - git push origin master
   #- php php-cs-fixer.phar fix $TRAVIS_BUILD_DIR/drupal/modules/oeaw/src/OeawFunctions.php 
   #- phpcbf --no-patch --standard=Drupal $TRAVIS_BUILD_DIR/drupal/modules/oeaw/src/ 
   #- patch -p0 -ui $TRAVIS_BUILD_DIR/drupal/modules/$MODULE_NAME_diff/oeaw/src/
@@ -135,11 +137,11 @@ after_success:
 #    - cd $TRAVIS_BUILD_DIR/misc && ls
 #    - cp -R $TRAVIS_BUILD_DIR/misc/.gitignore $TRAVIS_BUILD_DIR/.gitignore
 
-deploy:
-    provider: pages
-    skip-cleanup: true
-    local-dir: $TRAVIS_BUILD_DIR/drupal/modules/oeaw/
-    github-token: $GITHUB_TOKEN
+#deploy:
+#    provider: pages
+#    skip-cleanup: true
+#    local-dir: $TRAVIS_BUILD_DIR/drupal/modules/oeaw/
+#    github-token: $GITHUB_TOKEN
 #    target-branch: master2
 #    keep-history: true    
 #    on:

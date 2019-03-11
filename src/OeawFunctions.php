@@ -63,7 +63,7 @@ class OeawFunctions {
      * @param array $data
      * @return string
      */
-    public function createDetailViewUrl(array $data): string {
+    public function createDetailViewUrlNew(array $data): string {
         //check the PID
         if(isset($data['pid']) && !empty($data['pid'])){
             if (strpos($data['pid'], RC::get('epicResolver')) !== false) {
