@@ -137,7 +137,7 @@ deploy:
     skip_cleanup: true
     local-dir: $TRAVIS_BUILD_DIR/drupal/modules/oeaw/
     github-token: $GITHUB_TOKEN
-    committer-from-gh: true
+    #committer-from-gh: true
     #target-branch: master
     
         
