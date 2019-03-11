@@ -136,6 +136,7 @@ deploy:
     skip-cleanup: true
     local-dir: $TRAVIS_BUILD_DIR/drupal/modules/oeaw/
     github-token: $GITHUB_TOKEN
+    target-branch: master2
     keep-history: true    
     on:
         branch: master

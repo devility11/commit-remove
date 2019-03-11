@@ -11,7 +11,7 @@ use Drupal\oeaw\Model\OeawStorage as OeawStorage;
 use Drupal\oeaw\Model\OeawResource as OeawResource;
 use Drupal\oeaw\Model\OeawResourceChildren as ResourceChildren;
 use Drupal\oeaw\ConfigConstants as CC;
-use Drupal\oeaw\Helper\Helper;
+use Drupal\oeaw\Helper\Helper as Helper;
 
 use acdhOeaw\fedora\dissemination\Service;
 use acdhOeaw\fedora\Fedora;
@@ -20,6 +20,7 @@ use acdhOeaw\util\RepoConfig as RC;
 use EasyRdf\Resource as EasyRdfResource;
 
 /**
+ * 
  * Description of OeawFunctions
  *
  * @author nczirjak
