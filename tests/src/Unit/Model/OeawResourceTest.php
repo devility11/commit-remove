@@ -7,7 +7,6 @@ use Drupal\Tests\UnitTestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use acdhOeaw\util\RepoConfig as RC;
 
-require_once $_SERVER['HOME'].'/html/vendor/autoload.php';
 
 /**
  * @coversDefaultClass \Drupal\oeaw\Model\OeawResource
@@ -17,7 +16,7 @@ require_once $_SERVER['HOME'].'/html/vendor/autoload.php';
 class OeawResourceTest extends UnitTestCase {
     
     static private $arrayObject;
-    private $cfgDir = '/var/www/html/modules/oeaw/config.ini';
+    private $cfgDir;
         
     /**
     * Shadow t() system call.
@@ -37,6 +36,7 @@ class OeawResourceTest extends UnitTestCase {
     }
     
     protected function setUp() {
+        $this->cfgDir = $_SERVER['TRAVIS_BUILD_DIR']."/drupal/modules/oeaw/config.unittest.ini";
         //we need to setup the configfactory with the "oeaw.settings" config, because of
         // the multilanguage support.
          $this->config = $this->getMockBuilder('\Drupal\Core\Config\ImmutableConfig')
