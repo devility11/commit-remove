@@ -23,10 +23,9 @@ cache:
   - "$HOME/.composer/cache"
   - "$HOME/.drush/cache"
 
-mysql:
-  database: drupal
-  username: root
-  encoding: utf8
+branches:
+  only:
+    - master
 
 before_install:
   # Disable xdebug.
@@ -135,12 +134,12 @@ after_success:
 deploy:
     provider: pages
     skip-cleanup: true
-    local-dir: $TRAVIS_BUILD_DIR/drupal/modules/oeaw/
+    local-dir: $TRAVIS_BUILD_DIR/drupal/modules/oeaw/src
     github-token: $GITHUB_TOKEN
     target-branch: master
     keep-history: true    
-    #on:
-    #    branch: master
+    on:
+        branch: master
         
 #ignore_changes:
 #    - $TRAVIS_BUILD_DIR/.gitignore
