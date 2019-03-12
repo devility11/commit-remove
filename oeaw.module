@@ -1,0 +1,118 @@
+<?php
+
+function oeaw_theme() {
+  $theme['oeaw_detail_dt'] = [
+    'variables' => ['result' => NULL, 'extras' => NULL, 'childResult' => NULL, 'editResData' => NULL, 'userid' => NULL, 'hasBinary' => NULL, 'errorMSG' => null, 'query' => null],
+    'template' => 'resDetail',
+  ];  
+  
+  $theme['oeaw_child_view'] = [
+    'variables' => ['result' => NULL, 'pagination' => NULL],
+    'template' => 'childView',
+  ];  
+  
+  $theme['oeaw_3d_viewer'] = [
+    'variables' => ['ObjectUrl' => NULL, 'errorMSG' => null, 'templateData' => null],
+    'template' => 'viewer_3d',
+  ];  
+  
+  $theme['oeaw_dl_collection'] = [
+    'variables' => ['url' => NULL, 'errorMSG' => null, 'resourceData' => null],
+    'template' => 'dl_collection',
+  ];
+  
+  $theme['oeaw_dl_collection_tree'] = [
+    'variables' => ['url' => NULL, 'errorMSG' => null, 'resourceData' => null],
+    'template' => 'dl_collection_tree',
+  ];
+  $theme['oeaw_lng_switcher'] = [
+    'variables' => ['result' => NULL, 'language' => NULL],
+    'template' => 'lng_switcher',
+  ];
+  
+  $theme['oeaw_shibboleth_login'] = [
+    'variables' => [],
+    'template' => 'shibboleth_login',
+  ];
+  
+  $theme['oeaw_iiif_viewer'] = [
+    'variables' => ['url' => NULL, 'errorMSG' => null, 'templateData' => null],
+    'template' => 'viewer_iiif',
+  ];
+    
+  $theme['oeaw_success'] = [
+    'variables' => ['result' => NULL, 'userid' => NULL, 'errorMSG' => null],
+    'template' => 'success',
+  ];
+  
+  $theme['oeaw_success_resource'] = [
+    'variables' => ['result' => NULL, 'userid' => NULL, 'errorMSG' => null],
+    'template' => 'success_res',
+  ];
+  
+  $theme['oeaw_complex_search_res'] = [
+    'variables' => ['result' => NULL, 'searchedValues' => NULL, 'userid' => NULL, 'errorMSG' => null, 'search' => NULL, 'pagination' => NULL, 'totalResultAmount' => NULL, 'currentPage' => NULL, 'totalPages' => NULL,],
+    'template' => 'complex_search_res',
+  ];
+
+  $theme['oeaw_start_left_block'] = [
+    'variables' => ['result' => NULL],
+    'template' => 'start_left_block',
+  ];  
+
+  $theme['oeaw_query'] = [
+    'variables' => ['result' => NULL, 'header' => NULL, 'userid' => NULL, 'errorMSG' => null],
+    'template' => 'query',
+  ];
+  
+  $theme['oeaw_form_resource'] = [
+    'variables' => ['result' => NULL, 'userid' => NULL, 'errorMSG' => null],
+    'template' => 'form_res',
+  ];
+ 
+
+
+  return $theme;
+}
+
+
+/*
+ * Create a hook for the admin form page to we can use an external javascript file
+ * 
+ */
+function oeaw_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id){
+ 
+    $form['#attached']['library'][] = 'oeaw/mylibrary';
+    $form['#attached']['drupalSettings']['oeaw']['users']['id'] = \Drupal::currentUser()->id();
+    $roles = array();
+    $roles = \Drupal::currentUser()->getRoles();
+    if(count($roles) > 0){ $roles = implode(",", $roles); }
+    $form['#attached']['drupalSettings']['oeaw']['users']['roles'] = $roles;
+    
+    $current_path = \Drupal::service('path.current')->getPath();
+    
+    //if we are on the detail view then we need to cache the page settings.
+    if (strpos($current_path, '/oeaw_detail/') !== false) {
+        $cacheId = str_replace('/oeaw_detail/id.acdh.oeaw.ac.at:uuid:', '', $current_path);
+        $pageCh = \Drupal::cache()->get('oeaw.dV'.$cacheId.'.page');
+        $page = "";
+        if($pageCh === false) {
+            \Drupal::cache()->set('oeaw.dV'.$cacheId.'.page', 1, \Drupal\Core\Cache\CacheBackendInterface::CACHE_PERMANENT);
+            $pageObj = \Drupal::cache()->get('oeaw.dV'.$cacheId.'.page');
+            $page = $pageObj->data;
+        }else {
+            $page = $pageCh->data;
+        }
+        if(!$page) { $detailPage = 1; }
+        $form['#attached']['drupalSettings']['oeaw']['dV'.$cacheId]['page'] = $page;
+        $lang = 'en';
+        if(isset($_SESSION['language']) && !empty($_SESSION['language'])) { $lang = $_SESSION['language']; }
+        $form['#attached']['drupalSettings']['oeaw']['language'] = $lang;
+    }
+    return $form;
+}
+
+
+
+?>
+
