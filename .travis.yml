@@ -32,6 +32,9 @@ before_install:
   # Disable xdebug.
   - phpenv config-rm xdebug.ini
 
+  # Composer: boost installation
+  - composer global show hirak/prestissimo -q || travis_retry composer global require $DEFAULT_COMPOSER_FLAGS hirak/prestissimo
+
   # Composer.
   - sed -i '1i export PATH="$HOME/.composer/vendor/bin:$PATH"' $HOME/.bashrc
   - source $HOME/.bashrc
@@ -116,32 +119,38 @@ script:
   - $HOME/.composer/vendor/bin/phpunit -c core/phpunit.xml.dist modules/oeaw/tests/src/Unit/Model/OeawResourceCustomDataTest.php
   - $HOME/.composer/vendor/bin/phpunit -c core/phpunit.xml.dist modules/oeaw/tests/src/Unit/Model/OeawResourceTest.php
   #- $HOME/.composer/vendor/bin/phpunit -c core/phpunit.xml.dist modules/oeaw/tests/src/Unit/OeawFunctionsTest.php
+  - $HOME/.composer/vendor/bin/php-cs-fixer fix $TRAVIS_BUILD_DIR/drupal/modules/oeaw/src/
   
   #- phpcs --report=full --standard=PSR2 --warning-severity=0 $TRAVIS_BUILD_DIR/drupal/modules/oeaw
   #- phpcs --report=diff=$TRAVIS_BUILD_DIR/drupal/modules/$MODULE_NAME_diff --standard=Drupal $TRAVIS_BUILD_DIR/drupal/modules/oeaw/src/
 
 after_success:
-   - $HOME/.composer/vendor/bin/php-cs-fixer fix $TRAVIS_BUILD_DIR/drupal/modules/oeaw/src/
+  
+  
+   #- git push origin master
   #- php php-cs-fixer.phar fix $TRAVIS_BUILD_DIR/drupal/modules/oeaw/src/OeawFunctions.php 
   #- phpcbf --no-patch --standard=Drupal $TRAVIS_BUILD_DIR/drupal/modules/oeaw/src/ 
   #- patch -p0 -ui $TRAVIS_BUILD_DIR/drupal/modules/$MODULE_NAME_diff/oeaw/src/
 
-before_deploy:
-   #- cp $TRAVIS_BUILD_DIR/drupal/modules/oeaw/src/misc/.gitignore $TRAVIS_BUILD_DIR/drupal/modules/oeaw/src/.gitignore
+
+#before_deploy:
+#    - cd $TRAVIS_BUILD_DIR/ && ls
+#    - cd $TRAVIS_BUILD_DIR/misc && ls
+#    - cp -R $TRAVIS_BUILD_DIR/misc/.gitignore $TRAVIS_BUILD_DIR/.gitignore
 
 deploy:
     provider: pages
-    skip_cleanup: true
-    #local-dir: $TRAVIS_BUILD_DIR/drupal/modules/oeaw/
+    skip-cleanup: true
+    local-dir: $TRAVIS_BUILD_DIR/drupal/modules/oeaw/
     github-token: $GITHUB_TOKEN
-    keep-history: true
-    overwrite: true
     target-branch: live
+    keep-history: true    
     on:
         branch: master
         
 #ignore_changes:
-#    - $TRAVIS_BUILD_DIR/drupal/modules/oeaw/.gitignore
+#    - $TRAVIS_BUILD_DIR/.gitignore
+#    - modules/oeaw/.gitignore
 #    - $TRAVIS_BUILD_DIR/drupal/modules/oeaw/.travis.yml
 #    - .gitignore
 #    - .travis.yml
