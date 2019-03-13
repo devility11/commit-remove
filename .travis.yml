@@ -60,7 +60,7 @@ before_install:
   - phpenv rehash
   
 install:
-  - git clone $DRUPAL_REPO
+  - git clone $DRUPAL_REPO ./
   - cd drupal && composer install && cd -
   - mkdir -p drupal/modules/$MODULE_NAME
   # switched to doing it this way because it makes local testing a bit easier.
