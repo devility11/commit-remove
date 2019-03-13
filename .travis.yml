@@ -133,6 +133,6 @@ deploy:
     #target-branch: live
     #if it is false then Travis CI will delete all the files created during the build, which will probably delete what you are trying to upload.
     keep-history: true
-    #on:        
-    #    branch: master
+    on:        
+        branch: master
         
