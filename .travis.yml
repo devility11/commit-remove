@@ -127,8 +127,8 @@ deploy:
     provider: pages
     #skip-cleanup: true
     #local-dir: $TRAVIS_BUILD_DIR/drupal/modules/oeaw
+    #local-dir: /
     local-dir: /
-    #local-dir: drupal/modules/oeaw/
     github-token: $GITHUB_TOKEN
     #target-branch: live
     #keep-history: true
