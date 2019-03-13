@@ -103,23 +103,14 @@ before_script:
 
 script:
 
-  - composer run-script drupal-phpunit-upgrade
-  
-  #- phpcs --report=full --standard=Drupal --warning-severity=0 $TRAVIS_BUILD_DIR/drupal/modules/$MODULE_NAME --ignore=bin,*.css,gulpfile.js,libraries,modules/contrib,vendor
-  # Run code sniffer.
-  # Warnings are disabled until the SMS notifier is ported.
-  #- 
-
-  # Drupal "SimpleTests" via run-tests.sh
-  #- cd $TRAVIS_BUILD_DIR/drupal
-  #- php core/scripts/run-tests.sh --verbose --color --module $MODULE_NAME --php $(which php) --url http://127.0.0.1:8080
-
+  - composer run-script drupal-phpunit-upgrade  
+  #- phpcs --report=full --standard=Drupal --warning-severity=0 $TRAVIS_BUILD_DIR/drupal/modules/$MODULE_NAME --ignore=bin,*.css,gulpfile.js,libraries,modules/contrib,vendor  
   # PHP Unit Tests  
   - $HOME/.composer/vendor/bin/phpunit -c core/phpunit.xml.dist modules/oeaw/tests/src/Unit/Model/OeawResourceChildrenTest.php
   - $HOME/.composer/vendor/bin/phpunit -c core/phpunit.xml.dist modules/oeaw/tests/src/Unit/Model/OeawResourceCustomDataTest.php
   - $HOME/.composer/vendor/bin/phpunit -c core/phpunit.xml.dist modules/oeaw/tests/src/Unit/Model/OeawResourceTest.php
   #- $HOME/.composer/vendor/bin/phpunit -c core/phpunit.xml.dist modules/oeaw/tests/src/Unit/OeawFunctionsTest.php
-  - $HOME/.composer/vendor/bin/php-cs-fixer fix $TRAVIS_BUILD_DIR/drupal/modules/oeaw/src/
+  - $HOME/.composer/vendor/bin/php-cs-fixer fix --rules="@Symfony,-blank_line_before_statement,-@PSR2,-@PSR1" $TRAVIS_BUILD_DIR/drupal/modules/oeaw/src/
   
   #- phpcs --report=full --standard=PSR2 --warning-severity=0 $TRAVIS_BUILD_DIR/drupal/modules/oeaw
   #- phpcs --report=diff=$TRAVIS_BUILD_DIR/drupal/modules/$MODULE_NAME_diff --standard=Drupal $TRAVIS_BUILD_DIR/drupal/modules/oeaw/src/
@@ -132,12 +123,6 @@ after_success:
   #- phpcbf --no-patch --standard=Drupal $TRAVIS_BUILD_DIR/drupal/modules/oeaw/src/ 
   #- patch -p0 -ui $TRAVIS_BUILD_DIR/drupal/modules/$MODULE_NAME_diff/oeaw/src/
 
-
-#before_deploy:
-#    - cd $TRAVIS_BUILD_DIR/ && ls
-#    - cd $TRAVIS_BUILD_DIR/misc && ls
-#    - cp -R $TRAVIS_BUILD_DIR/misc/.gitignore $TRAVIS_BUILD_DIR/.gitignore
-
 deploy:
     provider: pages
     skip-cleanup: true
@@ -149,9 +134,3 @@ deploy:
     on:
         branch: master
         
-#ignore_changes:
-#    - $TRAVIS_BUILD_DIR/.gitignore
-#    - modules/oeaw/.gitignore
-#    - $TRAVIS_BUILD_DIR/drupal/modules/oeaw/.travis.yml
-#    - .gitignore
-#    - .travis.yml
