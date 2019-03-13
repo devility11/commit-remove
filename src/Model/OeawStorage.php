@@ -11,16 +11,11 @@ use Drupal\oeaw\Helper\Helper;
 use acdhOeaw\fedora\Fedora;
 use acdhOeaw\fedora\FedoraResource;
 use acdhOeaw\fedora\metadataQuery\MatchesRegEx;
-
 use acdhOeaw\fedora\metadataQuery\Query;
 use acdhOeaw\fedora\metadataQuery\QueryParameter;
 use acdhOeaw\fedora\metadataQuery\SimpleQuery;
-
 use acdhOeaw\util\SparqlEndpoint;
 use acdhOeaw\util\RepoConfig as RC;
-
-
-
 
 class OeawStorage implements OeawStorageInterface {
 
@@ -35,22 +30,10 @@ class OeawStorage implements OeawStorageInterface {
             . 'PREFIX foaf: <http://xmlns.com/foaf/0.1/>';
     
     private static $sparqlPref = array(
-        'rdfType' => 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type',
         'rdfsLabel' => 'http://www.w3.org/2000/01/rdf-schema#label',
-        'foafName' => 'http://xmlns.com/foaf/0.1/name',
-        'foafImage' => 'http://xmlns.com/foaf/0.1/Image',
-        'foafThumbnail' => 'http://xmlns.com/foaf/0.1/thumbnail',
-        'rdfsSubClass' => 'http://www.w3.org/2000/01/rdf-schema#subClassOf',
-        'rdfsSubPropertyOf' => 'http://www.w3.org/2000/01/rdf-schema#subPropertyOf',
-        'owlClass' => 'http://www.w3.org/2002/07/owl#Class',
-        'rdfsDomain' => 'http://www.w3.org/2000/01/rdf-schema#domain',
-        'dctLabel' => 'http://purl.org/dc/terms/label',
-        'owlOnProperty' => 'http://www.w3.org/2002/07/owl#onProperty',
-        'owlCardinality' => 'http://www.w3.org/2002/07/owl#cardinality',
-        'owlMinCardinality' => 'http://www.w3.org/2002/07/owl#minCardinality',
-        'owlMaxCardinality' => 'http://www.w3.org/2002/07/owl#maxCardinality'        
+        'foafImage' => 'http://xmlns.com/foaf/0.1/Image',        
+        'rdfsDomain' => 'http://www.w3.org/2000/01/rdf-schema#domain'        
     );
-        
     
     private $oeawFunctions;
     private $modelFunctions;
