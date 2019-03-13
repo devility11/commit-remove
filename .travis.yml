@@ -73,7 +73,7 @@ install:
   - cd drupal
 
 before_script:
-
+  #- cd $HOME/build/devility11/commit-remove/ && ls
   # This fixes a fail when install Drupal.
   - echo 'sendmail_path = /bin/true' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
 
@@ -125,13 +125,13 @@ after_success:
 
 deploy:
     provider: pages
-    #skip-cleanup: true
+    skip-cleanup: true
     #local-dir: $TRAVIS_BUILD_DIR/drupal/modules/oeaw
     #local-dir: /
-    local-dir: /
+    #local-dir: $HOME/build/devility11/commit-remove/
     github-token: $GITHUB_TOKEN
     #target-branch: live
-    #keep-history: true
+    keep-history: true
     on:        
         branch: master
         
