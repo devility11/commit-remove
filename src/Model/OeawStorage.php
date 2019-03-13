@@ -5,22 +5,16 @@ namespace Drupal\oeaw\Model;
 
 use Drupal\oeaw\OeawFunctions;
 use Drupal\oeaw\Model\ModelFunctions as MC;
-use Drupal\oeaw\ConfigConstants;
+use Drupal\oeaw\ConfigConstants as CC;
 use Drupal\oeaw\Helper\Helper;
 
 use acdhOeaw\fedora\Fedora;
 use acdhOeaw\fedora\FedoraResource;
-
-use acdhOeaw\fedora\metadataQuery\HasProperty;
-use acdhOeaw\fedora\metadataQuery\HasTriple;
-use acdhOeaw\fedora\metadataQuery\HasValue;
 use acdhOeaw\fedora\metadataQuery\MatchesRegEx;
 
 use acdhOeaw\fedora\metadataQuery\Query;
 use acdhOeaw\fedora\metadataQuery\QueryParameter;
 use acdhOeaw\fedora\metadataQuery\SimpleQuery;
-
-use Symfony\Component\HttpFoundation\RedirectResponse;
 
 use acdhOeaw\util\SparqlEndpoint;
 use acdhOeaw\util\RepoConfig as RC;
@@ -77,7 +71,7 @@ class OeawStorage implements OeawStorageInterface {
         
         //blazegraph bugfix. Add missing namespace
         $blazeGraphNamespaces = \EasyRdf\RdfNamespace::namespaces();
-        $localNamespaces = \Drupal\oeaw\ConfigConstants::$prefixesToBlazegraph;
+        $localNamespaces = CC::$prefixesToBlazegraph;
                 
         foreach($localNamespaces as $key => $val){
             if(!array_key_exists($val, $blazeGraphNamespaces)){
