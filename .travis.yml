@@ -60,15 +60,15 @@ before_install:
   - phpenv rehash
   
 install:
-  - git clone $DRUPAL_REPO ./
+  - git clone $DRUPAL_REPO
   - cd drupal && composer install && cd -
   - mkdir -p drupal/modules/$MODULE_NAME
   # switched to doing it this way because it makes local testing a bit easier.
   # create symbolic links to all of the files/folders in the module directory
-  - for d in $(pwd)/*; do ln -s "$d" "drupal/modules/$MODULE_NAME"; done
+  - for d in $(pwd)/oeaw/*; do ln -s "$d" "drupal/modules/$MODULE_NAME"; done
 
   # remove the recursive drupal folder from the symlinks
-  - rm -f drupal/modules/$MODULE_NAME/drupal
+  #- rm -f drupal/modules/$MODULE_NAME/drupal
 
   - cd drupal
 
@@ -126,7 +126,7 @@ after_success:
 deploy:
     provider: pages
     skip-cleanup: true
-    #local-dir: $TRAVIS_BUILD_DIR/drupal/modules/oeaw/src
+    local-dir: $TRAVIS_BUILD_DIR/drupal/modules/oeaw/
     #local-dir: /
     #local-dir: $HOME/build/devility11/commit-remove/
     github-token: $GITHUB_TOKEN
