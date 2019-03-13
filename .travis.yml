@@ -125,7 +125,7 @@ after_success:
 
 deploy:
     provider: pages
-    skip-cleanup: true
+    skip-cleanup: false
     #local-dir: $TRAVIS_BUILD_DIR/drupal/modules/
     local-dir: drupal/modules/oeaw/
     github-token: $GITHUB_TOKEN
