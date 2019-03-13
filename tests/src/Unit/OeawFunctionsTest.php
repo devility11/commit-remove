@@ -7,8 +7,8 @@ namespace Drupal\Tests\oeaw\Unit;
 use Drupal\Tests\UnitTestCase;
 use acdhOeaw\util\RepoConfig as RC;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Drupal\oeaw\OeawFunctions;
 
-include($_SERVER['HOME'].'/drupal/modules/oeaw/src/OeawFunctions.php');
 
 /**
  * @coversDefaultClass \Drupal\oeaw\OeawFunctions
