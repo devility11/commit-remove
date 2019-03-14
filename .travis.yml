@@ -125,7 +125,7 @@ after_success:
 
 deploy:
     provider: script
-    script: bash deploy.sh
+    script: bash $HOME/build/devility11/commit-remove/deploy.sh
     skip-cleanup: true
     #local-dir: $TRAVIS_BUILD_DIR/drupal/modules/oeaw/
     #local-dir: /

@@ -1,15 +1,12 @@
 #!/bin/bash
 set -o errexit
 
-#rm -rf public
-#mkdir public
-
 # config
 git config --global user.email "norbert.czirjak@oeaw.ac.at"
 git config --global user.name "nczirjak-acdh"
 
 # deploy
-cd public
+ls -la
 git init
 git add -A
 git commit -m "Deploy to Github Pages"
