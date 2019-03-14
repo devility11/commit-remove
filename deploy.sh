@@ -7,7 +7,7 @@ setup_git() {
 
 commit_website_files() {
   cd $HOME/build/devility11/commit-remove/
-  rm -r $HOME/build/devility11/commit-remove/drupal
+  rm -rf $HOME/build/devility11/commit-remove/drupal
   git add $HOME/build/devility11/commit-remove/* -A
   git commit --message "Travis build: $TRAVIS_BUILD_NUMBER"
   
