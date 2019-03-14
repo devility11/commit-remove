@@ -6,7 +6,7 @@ setup_git() {
 }
 
 commit_website_files() {
-  cd modules/oeaw/
+  cd modules/
   ls -la  
   git add -A
   git commit --message "Travis build: $TRAVIS_BUILD_NUMBER"
