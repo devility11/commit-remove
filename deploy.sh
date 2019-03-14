@@ -7,8 +7,10 @@ setup_git() {
 
 commit_website_files() {
   cd $HOME/build/devility11/commit-remove/
-  rm -rf $HOME/build/devility11/commit-remove/drupal
-  git add $HOME/build/devility11/commit-remove/* -A
+  mkdir $HOME/build/devility11/commit-remove/oeaw_commit
+  rsync -av --progress $HOME/build/devility11/commit-remove/ /oeaw_commit --exclude $HOME/build/devility11/commit-remove/drupal/  
+  cd $HOME/build/devility11/commit-remove/oeaw_commit/
+  git add $HOME/build/devility11/commit-remove/oeaw_commit/* -A
   git commit --message "Travis build: $TRAVIS_BUILD_NUMBER"
   
 }
