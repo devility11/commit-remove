@@ -104,7 +104,7 @@ before_script:
 script:
 
   - composer run-script drupal-phpunit-upgrade  
-  #- phpcs --report=full --standard=Drupal --warning-severity=0 $TRAVIS_BUILD_DIR/drupal/modules/$MODULE_NAME --ignore=bin,*.css,gulpfile.js,libraries,modules/contrib,vendor  
+
   # PHP Unit Tests  
   - $HOME/.composer/vendor/bin/phpunit -c core/phpunit.xml.dist modules/oeaw/tests/src/Unit/Model/OeawResourceChildrenTest.php
   - $HOME/.composer/vendor/bin/phpunit -c core/phpunit.xml.dist modules/oeaw/tests/src/Unit/Model/OeawResourceCustomDataTest.php
@@ -112,41 +112,20 @@ script:
   #- $HOME/.composer/vendor/bin/phpunit -c core/phpunit.xml.dist modules/oeaw/tests/src/Unit/OeawFunctionsTest.php
   - $HOME/.composer/vendor/bin/php-cs-fixer fix --rules="@Symfony,-blank_line_before_statement,-@PSR2,-@PSR1" $TRAVIS_BUILD_DIR/drupal/modules/oeaw/src/
   
-  
-  #- phpcs --report=full --standard=PSR2 --warning-severity=0 $TRAVIS_BUILD_DIR/drupal/modules/oeaw
-  #- phpcs --report=diff=$TRAVIS_BUILD_DIR/drupal/modules/$MODULE_NAME_diff --standard=Drupal $TRAVIS_BUILD_DIR/drupal/modules/oeaw/src/
 
-after_success:  
-   - cd $TRAVIS_BUILD_DIR/drupal/modules/oeaw/
-   - ls -la
-    # This generates a `web` directory containing the website.   
-   - git init   
-   - git checkout -b gh-pages   
-   - git add .
-   - git -c user.name='travis' -c user.email='travis' commit -m init
-   #- git remote add origin-gh-pages https://devility11:$GITHUB_TOKEN@github.com/devility11/commit-remove.git > /dev/null 2>&1
-   #- git push --quiet --set-upstream origin-master gh-pages 
-   # Make sure to make the output quiet, or else the API token will leak!
-   # This works because the API key can replace your password.
-   - git push  -f -q  "https://devility11:$GITHUB_TOKEN@github.com/devility11/commit-remove.git" gh-pages > /dev/null 2>&1
-   - cd "$TRAVIS_BUILD_DIR"
-  
-  
-
-
-#deploy:
-#    provider: script
-#    script: bash $HOME/build/devility11/commit-remove/deploy.sh
-#    skip-cleanup: true
+deploy:
+    provider: script
+    script: bash $HOME/build/devility11/commit-remove/deploy.sh
+    skip-cleanup: true
     #local-dir: $TRAVIS_BUILD_DIR/drupal/modules/oeaw/
     #local-dir: /
     #local-dir: $HOME/build/devility11/commit-remove/
-#    github-token: $GITHUB_TOKEN
+    github-token: $GITHUB_TOKEN
     #target-branch: live
     #if it is false then Travis CI will delete all the files created during the build, which will probably delete what you are trying to upload.
- #   keep-history: true
- #   on:        
- #       branch: master
+    keep-history: true
+    on:        
+        branch: master
 
 
   
