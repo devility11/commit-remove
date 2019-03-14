@@ -9,20 +9,11 @@ commit_website_files() {
   cd $HOME/build/devility11/commit-remove/
   cp -rf $HOME/build/devility11/commit-remove/src/ $HOME/build/devility11/commit-remove/oeaw_commit/
   cd $HOME/build/devility11/commit-remove/oeaw_commit/
-  ls -la
+  ls
   git add $HOME/build/devility11/commit-remove/oeaw_commit/* -A
   git commit --message "Travis build: $TRAVIS_BUILD_NUMBER"
   git push -f -q https://devility11:${GITHUB_TOKEN}@github.com/devility11/commit-remove.git live > /dev/null 2>&1
 }
 
-upload_files() {
-  
-  
-  
-}
-
 setup_git
 commit_website_files
-upload_files
-
-    
