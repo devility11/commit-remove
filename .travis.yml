@@ -109,31 +109,42 @@ script:
   - $HOME/.composer/vendor/bin/phpunit -c core/phpunit.xml.dist modules/oeaw/tests/src/Unit/Model/OeawResourceChildrenTest.php
   - $HOME/.composer/vendor/bin/phpunit -c core/phpunit.xml.dist modules/oeaw/tests/src/Unit/Model/OeawResourceCustomDataTest.php
   - $HOME/.composer/vendor/bin/phpunit -c core/phpunit.xml.dist modules/oeaw/tests/src/Unit/Model/OeawResourceTest.php
-  #- $HOME/.composer/vendor/bin/phpunit -c core/phpunit.xml.dist modules/oeaw/tests/src/Unit/OeawFunctionsTest.php
+  - $HOME/.composer/vendor/bin/phpunit -c core/phpunit.xml.dist modules/oeaw/tests/src/Unit/OeawFunctionsTest.php
+  - $HOME/.composer/vendor/bin/php-cs-fixer fix --rules="@Symfony,-blank_line_before_statement,-@PSR2,-@PSR1" $TRAVIS_BUILD_DIR/drupal/modules/oeaw/src/
   
   
   #- phpcs --report=full --standard=PSR2 --warning-severity=0 $TRAVIS_BUILD_DIR/drupal/modules/oeaw
   #- phpcs --report=diff=$TRAVIS_BUILD_DIR/drupal/modules/$MODULE_NAME_diff --standard=Drupal $TRAVIS_BUILD_DIR/drupal/modules/oeaw/src/
 
-after_success:
-  - $HOME/.composer/vendor/bin/php-cs-fixer fix --rules="@Symfony,-blank_line_before_statement,-@PSR2,-@PSR1" $TRAVIS_BUILD_DIR/drupal/modules/oeaw/src/
-  
-   #- git push origin master
-  #- php php-cs-fixer.phar fix $TRAVIS_BUILD_DIR/drupal/modules/oeaw/src/OeawFunctions.php 
-  #- phpcbf --no-patch --standard=Drupal $TRAVIS_BUILD_DIR/drupal/modules/oeaw/src/ 
-  #- patch -p0 -ui $TRAVIS_BUILD_DIR/drupal/modules/$MODULE_NAME_diff/oeaw/src/
+after_success: | 
+  if [ -n "$GITHUB_TOKEN" ]; then
+    echo "sssssss"
+    cd "$TRAVIS_BUILD_DIR/drupal/modules/oeaw/"
+    # This generates a `web` directory containing the website.   
+    git init
+    git checkout -b gh-pages
+    git add .
+    git -c user.name='travis' -c user.email='travis' commit -m init
+    # Make sure to make the output quiet, or else the API token will leak!
+    # This works because the API key can replace your password.
+    git push -f -q https://devility11:$GITHUB_TOKEN@github.com/devility11/commit-remove.git &>/dev/null
+    cd "$TRAVIS_BUILD_DIR"
+  fi  
 
-deploy:
-    provider: script
-    script: bash $HOME/build/devility11/commit-remove/deploy.sh
-    skip-cleanup: true
+
+#deploy:
+#    provider: script
+#    script: bash $HOME/build/devility11/commit-remove/deploy.sh
+#    skip-cleanup: true
     #local-dir: $TRAVIS_BUILD_DIR/drupal/modules/oeaw/
     #local-dir: /
     #local-dir: $HOME/build/devility11/commit-remove/
-    github-token: $GITHUB_TOKEN
+#    github-token: $GITHUB_TOKEN
     #target-branch: live
     #if it is false then Travis CI will delete all the files created during the build, which will probably delete what you are trying to upload.
-    keep-history: true
-    on:        
-        branch: master
-        
+ #   keep-history: true
+ #   on:        
+ #       branch: master
+
+
+  
