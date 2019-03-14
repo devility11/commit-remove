@@ -117,16 +117,18 @@ script:
   #- phpcs --report=diff=$TRAVIS_BUILD_DIR/drupal/modules/$MODULE_NAME_diff --standard=Drupal $TRAVIS_BUILD_DIR/drupal/modules/oeaw/src/
 
 after_success:  
-   - cd "$TRAVIS_BUILD_DIR/drupal/modules/oeaw/"
+   - cd $TRAVIS_BUILD_DIR/drupal/modules/oeaw/
+   - ls -la
     # This generates a `web` directory containing the website.   
    - git init   
-   - git checkout -b gh-pages
-   - git remote -v
+   - git checkout -b gh-pages   
    - git add .
    - git -c user.name='travis' -c user.email='travis' commit -m init
+   #- git remote add origin-gh-pages https://devility11:$GITHUB_TOKEN@github.com/devility11/commit-remove.git > /dev/null 2>&1
+   #- git push --quiet --set-upstream origin-master gh-pages 
    # Make sure to make the output quiet, or else the API token will leak!
    # This works because the API key can replace your password.
-   - git push  -f -q -u origin gh-pages https://devility11:$GITHUB_TOKEN@github.com/devility11/commit-remove.git
+   - git push  -f -q  "https://devility11:$GITHUB_TOKEN@github.com/devility11/commit-remove.git" gh-pages > /dev/null 2>&1
    - cd "$TRAVIS_BUILD_DIR"
   
   
