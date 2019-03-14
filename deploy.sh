@@ -7,6 +7,7 @@ git config --global user.name "nczirjak-acdh"
 
 # deploy
 ls -la
+cd modules/oeaw/
 git init
 git add -A
 git commit -m "Deploy to Github Pages"
