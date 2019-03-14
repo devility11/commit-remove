@@ -1,16 +1,22 @@
-#!/bin/bash
-set -o errexit
+#!/bin/sh
 
-# config
-git config --global user.email "norbert.czirjak@oeaw.ac.at"
-git config --global user.name "nczirjak-acdh"
+setup_git() {
+  git config --global user.email "travis@travis-ci.org"
+  git config --global user.name "Travis CI"
+}
 
-# deploy
-cd modules/oeaw/
-ls -la
-git init
-git checkout -b live   
-git add -A
-git commit -m "Deploy to Github Pages"
-git push --f --q https://devility11:$GITHUB_TOKEN@$github.com/devility11/commit-remove.git live > /dev/null 2>&1
+commit_website_files() {
+  git checkout -b gh-pages
+  git add .
+  git commit --message "Travis build: $TRAVIS_BUILD_NUMBER"
+}
+
+upload_files() {
+  git remote add origin-pages https://${GITHUB_TOKEN}@github.com/devility11/commit-remove.git > /dev/null 2>&1
+  git push --quiet --set-upstream origin-pages gh-pages 
+}
+
+setup_git
+commit_website_files
+upload_files
 
