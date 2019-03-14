@@ -6,14 +6,15 @@ setup_git() {
 }
 
 commit_website_files() {
-  cd modules/
-  ls -la  
-  git add -A
-  git commit --message "Travis build: $TRAVIS_BUILD_NUMBER"
+  cd $HOME/build/devility11/commit-remove/ && ls -la  
+  cd $HOME && ls -la
+  cd $TRAVIS_BUILD_DIR/drupal/modules && ls -la
+  #git add -A
+  #git commit --message "Travis build: $TRAVIS_BUILD_NUMBER"
 }
 
 upload_files() {
-  git push -f -q https://devility11:${GITHUB_TOKEN}@github.com/devility11/commit-remove.git live > /dev/null 2>&1
+  #git push -f -q https://devility11:${GITHUB_TOKEN}@github.com/devility11/commit-remove.git live > /dev/null 2>&1
   
 }
 
