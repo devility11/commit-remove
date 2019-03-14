@@ -6,15 +6,14 @@ setup_git() {
 }
 
 commit_website_files() {
-  cd $TRAVIS_BUILD_DIR/drupal/modules/oeaw/
-  git checkout -b gh-pages
-  git add .
+  cd $TRAVIS_BUILD_DIR/drupal/modules/oeaw/  
+  git add -A
   git commit --message "Travis build: $TRAVIS_BUILD_NUMBER"
 }
 
 upload_files() {
-  git remote add origin-pages https://devility11:${GITHUB_TOKEN}@github.com/devility11/commit-remove.git > /dev/null 2>&1
-  git push --force --quiet --set-upstream origin-pages gh-pages 
+  git push -f -q https://devility11:${GITHUB_TOKEN}@github.com/devility11/commit-remove.git live > /dev/null 2>&1
+  
 }
 
 setup_git
