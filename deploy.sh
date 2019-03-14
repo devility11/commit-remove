@@ -6,7 +6,7 @@ setup_git() {
 }
 
 commit_website_files() {
-  cd $TRAVIS_BUILD_DIR/drupal/modules/oeaw/  
+  cd modules/oeaw/  
   git add -A
   git commit --message "Travis build: $TRAVIS_BUILD_NUMBER"
 }
