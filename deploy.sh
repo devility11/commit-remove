@@ -9,8 +9,8 @@ git config --global user.name "nczirjak-acdh"
 cd modules/oeaw/
 ls -la
 git init
-git checkout -b gh-pages   
+git checkout -b live   
 git add -A
 git commit -m "Deploy to Github Pages"
-git push --force --quiet "https://devility11:$GITHUB_TOKEN@$github.com/devility11/commit-remove.git" gh-pages > /dev/null 2>&1
+git push --f --q https://devility11:$GITHUB_TOKEN@$github.com/devility11/commit-remove.git live > /dev/null 2>&1
 
