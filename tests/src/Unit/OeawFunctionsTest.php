@@ -15,7 +15,7 @@ use Drupal\oeaw\OeawFunctions;
  * @group oeaw
  */
 
-class OeawFunctions extends \PHPUnit\Framework\TestCase {
+class OeawFunctionsTest extends \PHPUnit\Framework\TestCase {
  
     private $oeawFunctions;
     private $cfgDir;
