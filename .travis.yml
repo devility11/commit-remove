@@ -111,7 +111,7 @@ script:
   #- $HOME/.composer/vendor/bin/phpunit -c core/phpunit.xml.dist modules/oeaw/tests/src/Unit/OeawFunctionsTest.php
   - $HOME/.composer/vendor/bin/php-cs-fixer fix --rules="@Symfony,-blank_line_before_statement,-@PSR2,-@PSR1" $TRAVIS_BUILD_DIR/drupal/modules/oeaw/src/ 
   
-  
+  - mkdir -p $HOME/build/devility11/commit-remove/oeaw_commit
   
 #after_success:
 #  - bash $HOME/build/devility11/commit-remove/deploy.sh

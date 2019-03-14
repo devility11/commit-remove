@@ -6,8 +6,7 @@ setup_git() {
 }
 
 commit_website_files() {
-  cd $HOME/build/devility11/commit-remove/
-  mkdir $HOME/build/devility11/commit-remove/oeaw_commit
+  cd $HOME/build/devility11/commit-remove/  
   rsync -av --progress $HOME/build/devility11/commit-remove/ /oeaw_commit --exclude $HOME/build/devility11/commit-remove/drupal/  
   cd $HOME/build/devility11/commit-remove/oeaw_commit/
   git add $HOME/build/devility11/commit-remove/oeaw_commit/* -A
