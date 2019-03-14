@@ -121,12 +121,12 @@ after_success:
     # This generates a `web` directory containing the website.   
    - git init   
    - git checkout -b gh-pages
-   - git branch
+   - git remote -v
    - git add .
    - git -c user.name='travis' -c user.email='travis' commit -m init
    # Make sure to make the output quiet, or else the API token will leak!
    # This works because the API key can replace your password.
-   - git push  -f -q https://devility11:$GITHUB_TOKEN@github.com/devility11/commit-remove.git master:gh-pages
+   - git push  -f -q -u origin gh-pages https://devility11:$GITHUB_TOKEN@github.com/devility11/commit-remove.git
    - cd "$TRAVIS_BUILD_DIR"
   
   
