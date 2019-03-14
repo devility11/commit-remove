@@ -68,7 +68,7 @@ install:
   - for d in $(pwd)/*; do ln -s "$d" "drupal/modules/$MODULE_NAME"; done
 
   # remove the recursive drupal folder from the symlinks
-  #- rm -f drupal/modules/$MODULE_NAME/drupal
+  - rm -f drupal/modules/$MODULE_NAME/drupal
 
   - cd drupal
 
