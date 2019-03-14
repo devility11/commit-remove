@@ -11,4 +11,4 @@ cd modules/oeaw/
 git init
 git add -A
 git commit -m "Deploy to Github Pages"
-git push --force --quiet "https://${GITHUB_TOKEN}@$github.com/${GITHUB_REPO}.git" master:gh-pages > /dev/null 2>&1
+git push --force --quiet "https://devility11:$GITHUB_TOKEN@$github.com/devility11/commit-remove.git" master:gh-pages > /dev/null 2>&1
