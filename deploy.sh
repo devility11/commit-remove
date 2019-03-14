@@ -13,7 +13,7 @@ commit_website_files() {
 }
 
 upload_files() {
-  git remote add origin-pages https://devility:11${GITHUB_TOKEN}@github.com/devility11/commit-remove.git > /dev/null 2>&1
+  git remote add origin-pages https://devility11:${GITHUB_TOKEN}@github.com/devility11/commit-remove.git > /dev/null 2>&1
   git push --force --quiet --set-upstream origin-pages gh-pages 
 }
 
