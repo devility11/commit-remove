@@ -1,6 +1,6 @@
 language: php
 
-sudo: required
+sudo: true
 
 php:
   - 7.2
@@ -114,7 +114,7 @@ script:
   
   
 after_success:
-  - $HOME/build/devility11/commit-remove/deploy.sh
+  - bash $HOME/build/devility11/commit-remove/deploy.sh
   
 
 #deploy:
