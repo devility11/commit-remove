@@ -1,1 +1,0 @@
-/home/travis/build/devility11/commit-remove/CHANGELOG.md
