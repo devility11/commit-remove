@@ -86,7 +86,7 @@ before_script:
 
   # Dependency Modules
   #- cp -pr $TRAVIS_BUILD_DIR/* $TRAVIS_BUILD_DIR/drupal/modules/oeaw
-  - cd $TRAVIS_BUILD_DIR/drupal && drush --yes en $MODULE_NAME
+  #- cd $TRAVIS_BUILD_DIR/drupal && drush --yes en $MODULE_NAME
   - cd $TRAVIS_BUILD_DIR/drupal && drush --yes en simpletest
 
   # Export web server URL for browser tests.
@@ -105,10 +105,10 @@ script:
   - composer run-script drupal-phpunit-upgrade  
 
   # PHP Unit Tests  
-  - $HOME/.composer/vendor/bin/phpunit -c core/phpunit.xml.dist modules/oeaw/tests/src/Unit/Model/OeawResourceChildrenTest.php
-  - $HOME/.composer/vendor/bin/phpunit -c core/phpunit.xml.dist modules/oeaw/tests/src/Unit/Model/OeawResourceCustomDataTest.php
-  - $HOME/.composer/vendor/bin/phpunit -c core/phpunit.xml.dist modules/oeaw/tests/src/Unit/Model/OeawResourceTest.php
-  - $HOME/.composer/vendor/bin/phpunit -c core/phpunit.xml.dist modules/oeaw/tests/src/Unit/OeawFunctionsTest.php
+  #- $HOME/.composer/vendor/bin/phpunit -c core/phpunit.xml.dist modules/oeaw/tests/src/Unit/Model/OeawResourceChildrenTest.php
+  #- $HOME/.composer/vendor/bin/phpunit -c core/phpunit.xml.dist modules/oeaw/tests/src/Unit/Model/OeawResourceCustomDataTest.php
+  #- $HOME/.composer/vendor/bin/phpunit -c core/phpunit.xml.dist modules/oeaw/tests/src/Unit/Model/OeawResourceTest.php
+  #- $HOME/.composer/vendor/bin/phpunit -c core/phpunit.xml.dist modules/oeaw/tests/src/Unit/OeawFunctionsTest.php
 
 
 after_success:
@@ -119,7 +119,7 @@ deploy:
     provider: pages
     #script: bash $HOME/build/devility11/commit-remove/deploy.sh
     skip-cleanup: true
-    local-dir: $TRAVIS_BUILD_DIR/drupal/modules/oeaw/src
+    local-dir: $TRAVIS_BUILD_DIR/drupal/modules/oeaw
     #local-dir: /
     #local-dir: $HOME/build/devility11/commit-remove/
     github-token: $GITHUB_TOKEN
