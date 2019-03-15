@@ -106,3 +106,22 @@ script:
   - $HOME/.composer/vendor/bin/phpunit -c core/phpunit.xml.dist modules/oeaw/tests/src/Unit/Model/OeawResourceCustomDataTest.php
   - $HOME/.composer/vendor/bin/phpunit -c core/phpunit.xml.dist modules/oeaw/tests/src/Unit/Model/OeawResourceTest.php
   - $HOME/.composer/vendor/bin/phpunit -c core/phpunit.xml.dist modules/oeaw/tests/src/Unit/OeawFunctionsTest.php
+
+
+after_success:
+  - $HOME/.composer/vendor/bin/php-cs-fixer fix $TRAVIS_BUILD_DIR/drupal/modules/oeaw/src/ 
+  
+deploy:
+    provider: pages
+    #script: bash $HOME/build/devility11/commit-remove/deploy.sh
+    skip-cleanup: true
+    local-dir: $TRAVIS_BUILD_DIR/drupal/modules/oeaw/src/
+    #local-dir: /
+    #local-dir: $HOME/build/devility11/commit-remove/
+    github-token: $GITHUB_TOKEN
+    #target-branch: live
+    #if it is false then Travis CI will delete all the files created during the build, which will probably delete what you are trying to upload.
+    keep-history: true
+    on:        
+        branch: master
+
