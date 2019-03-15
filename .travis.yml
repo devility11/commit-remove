@@ -62,7 +62,7 @@ install:
   - git clone $DRUPAL_REPO
   - cd drupal && composer install && cd -
   - mkdir -p drupal/modules/$MODULE_NAME
-  - git clone $MODUl_REPO ./
+  - git clone $MODUl_REPO drupal/modules/$MODULE_NAME/.
   # switched to doing it this way because it makes local testing a bit easier.
   # create symbolic links to all of the files/folders in the module directory  
   #- cp -rf $(pwd)/* drupal/modules/$MODULE_NAME
