@@ -9,6 +9,7 @@ env:
   global:
     - MODULE_NAME='oeaw'
     - DRUPAL_REPO='http://git.drupal.org/project/drupal.git'
+    - MODUL_REPO='https://github.com/acdh-oeaw/repo-gui.git'
     - DRUPAL_VERSION='8.6.*'
     - PHPCS_VERSION='2.*'
     - CODER_VERSION='8.*'
@@ -61,10 +62,11 @@ install:
   - git clone $DRUPAL_REPO
   - cd drupal && composer install && cd -
   - mkdir -p drupal/modules/$MODULE_NAME
+  - git clone $MODUl_REPO ./
   # switched to doing it this way because it makes local testing a bit easier.
   # create symbolic links to all of the files/folders in the module directory  
-  - cp -rf $(pwd)/* drupal/modules/$MODULE_NAME
-  - mkdir -p drupal/modules/oeaw && cp -a oeaw* drupal/modules/oeaw
+  #- cp -rf $(pwd)/* drupal/modules/$MODULE_NAME
+  #- mkdir -p drupal/modules/oeaw && cp -a oeaw* drupal/modules/oeaw
   #- for d in $(pwd)/*; do ln -s "$d" "drupal/modules/$MODULE_NAME"; done
   # remove the recursive drupal folder from the symlinks
   #- rm -f drupal/modules/$MODULE_NAME/drupal
