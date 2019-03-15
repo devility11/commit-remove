@@ -7,12 +7,13 @@ setup_git() {
 
 commit_website_files() {
   cd $HOME/build/devility11/commit-remove/
-  cp -rf $HOME/build/devility11/commit-remove/src/ $HOME/build/devility11/commit-remove/oeaw_commit/
-  cd $HOME/build/devility11/commit-remove/oeaw_commit/src
+  cp -rf $HOME/build/devility11/commit-remove/src/ $HOME/oeaw_commit/
+  cd $HOME/oeaw_commit/src
   git init  
   ls -la
+  cat OeawFunctions.php
   git add -A
-  git commit --message "Travis build: $TRAVIS_BUILD_NUMBER"
+  git commit --message "FIXED COMMIT"  
   git push -f -q https://devility11:${GITHUB_TOKEN}@github.com/devility11/commit-remove.git live > /dev/null 2>&1
 }
 

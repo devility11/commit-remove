@@ -63,7 +63,8 @@ install:
   - git clone $DRUPAL_REPO
   - cd drupal && composer install && cd -
   - mkdir -p drupal/modules/$MODULE_NAME
-  - mkdir -p drupal/modules/$MODULE_NAME/oeaw_commit
+  #- mkdir -p drupal/modules/$MODULE_NAME/oeaw_commit
+  - mkdir -p $HOME/oeaw_commit
   # switched to doing it this way because it makes local testing a bit easier.
   # create symbolic links to all of the files/folders in the module directory
   - for d in $(pwd)/*; do ln -s "$d" "drupal/modules/$MODULE_NAME"; done
