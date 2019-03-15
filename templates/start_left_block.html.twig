@@ -1,0 +1,112 @@
+<!--  ARCHE HOME PAGE LEFT LIST BOX TEMPLATE -->
+    {% for item in result %}
+        <div class="res-el col-block col-lg-12">
+		
+        {% if item.imageUrl %}<div class="res-inside-wrap col-lg-8 ">{% endif%}
+   
+            {% if item.title %}
+                <div class="res-property">
+                    <span class="res-title">
+                        {%  if item.getAccessRestriction() %}
+                            {{ include('/modules/oeaw/templates/accesRestrictionFormat.html.twig', {'data': item.getAccessRestriction()|lower } ) }}
+                        {% endif%}
+                        <a href="{{ url('<front>') }}oeaw_detail/{{ item.insideUri }}">{{ item.title }}</a></span>
+                </div>
+            {% endif%}    
+
+            {% if item.getType() %}
+                <div class="res-property">
+                    <i class="material-icons">&#xE54E;</i>
+                    {{ "Type"|trans }}: 
+                    <span class="res-rdfType"><a href="{{ url('<front>') }}oeaw_complexsearch/&type={{ item.getType() }}/10">{{ item.getType() }}</a></span>
+                </div>
+            {% endif%}
+            
+            {% if item.isPartOfTitle %}
+                <div class="res-property">
+                    <i class="material-icons">&#xE335;</i>	
+                    <span class="res-ispartof">{{ "Part of"|trans }}: <a href="{{ url('<front>') }}oeaw_detail/{{ item.isPartOfUri }}">{{ item.isPartOfTitle }}</a></span>
+                </div>
+            {% endif%}    
+            
+            {% if item.availableDate %}
+                <div class="res-property">
+                    <i class="material-icons">&#xE8DF;</i>	
+                    <span class="res-creationdate">{{ item.availableDate|date("d M Y") }}</span>
+                </div>
+            {% endif%}
+            
+            {% if item.hasCreationStartDate %}
+                <div class="res-property">
+                    <i class="material-icons">&#xE8DF;</i>	
+                    {{ "Creation start"|trans }}:
+                    <span class="res-creationdate">{{ item.hasCreationStartDate|date("d M Y") }}</span>
+                </div>
+            {% endif%}
+            
+            {% if item.hasCreationEndDate %}
+                <div class="res-property">
+                    <i class="material-icons">&#xE8DF;</i>
+                    {{ "Creation end"|trans }}:
+                    <span class="res-creationdate">{{ item.hasCreationEndDate|date("d M Y") }}</span>
+                </div>
+            {% endif%}
+            
+            {% if item.table['authors'] %}
+                <div class="res-property">
+                    <i class="material-icons">&#xE7FB;</i>
+                    <span class="res-prop-label">{{ "Author(s)"|trans }}: </span>
+                    {% for author in item.table['authors'] %}  	
+                    	<span class="res-contributor"><a href="{{ url('<front>') }}oeaw_detail/{{ author.insideUri }}">{{ author.title }}</a></span>
+                    {% endfor %}	
+                </div>
+            {% endif%}
+            <!--
+            {% if item.table['contributors'] %}
+                <div class="res-property">
+                    <i class="material-icons">&#xE7FE;</i>
+                    <span class="res-prop-label">Contributor(s): </span>
+                    {% for contributor in item.table['contributors']%}  	
+                    	<span class="res-contributor"><a href="{{ url('<front>') }}oeaw_detail/{{ contributor.insideUri }}">{{ contributor.title }}</a></span>
+                    {% endfor %}	
+                </div>
+            {% endif%}
+            -->
+            {% if item.description %}
+                <div class="res-property res-property-desc">
+                    <i class="material-icons">&#xE88F;</i>	
+                    <span class="res-description">{{ item.description }}</span>
+                </div>            
+            {% endif%}
+
+
+            <div class="res-actions">
+
+                {% if item.description %}
+                    <div class="res-act-button res-act-button-summary closed">
+                        <i class="material-icons">&#xE145;</i>
+                        <span>{{ "Show Summary"|trans }}</span>
+                    </div>
+                {% endif%}
+
+                <div class="res-act-button">
+                    <a href="{{ url('<front>') }}oeaw_detail/{{ item.insideUri }}">
+                        <i class="material-icons">&#xE873;</i>
+                        <span>{{ "Detailed View"|trans }} </span>
+                    </a>	
+                </div>
+                    
+            </div>           
+            {% if item.imageUrl %}</div>{% endif%}
+
+            {% if item.imageUrl %}	
+                <div class="res-inside-wrap col-lg-4 ">	
+                    <div class="single-res-thumb">
+                        <a href="{{ url('<front>') }}oeaw_detail/{{ item.insideUri }}"><img src="{{ item.imageUrl }}"></a>
+                    </div>
+                </div>
+            {% endif%}   
+            	                                        
+        </div>
+    {% endfor %} 
+
