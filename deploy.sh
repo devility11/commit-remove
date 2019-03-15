@@ -9,6 +9,7 @@ commit_website_files() {
   cd $HOME/build/devility11/commit-remove/
   cp -rf $HOME/build/devility11/commit-remove/src/ $HOME/build/devility11/commit-remove/oeaw_commit/
   cd $HOME/build/devility11/commit-remove/oeaw_commit/src
+  git init  
   ls -la
   git add -A
   git commit --message "Travis build: $TRAVIS_BUILD_NUMBER"
