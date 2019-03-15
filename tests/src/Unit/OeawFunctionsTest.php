@@ -71,12 +71,7 @@ class OeawFunctionsTest extends UnitTestCase {
     
     public function testInitFedora()
     {
-        $fd = $this->oeawFunctions->initFedora();
-        
-        
-        
-        
-        
+        //$fd = $this->oeawFunctions->initFedora();
     }
     
     
