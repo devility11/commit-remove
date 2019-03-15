@@ -1,13 +1,12 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Drupal\Tests\oeaw\Unit;
+namespace Drupal\Tests\oeaw\OeawFunctionsTest;
+namespace Drupal\oeaw;
 
 use Drupal\Tests\UnitTestCase;
-use acdhOeaw\util\RepoConfig as RC;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Drupal\oeaw\OeawFunctions;
+use acdhOeaw\util\RepoConfig as RC;
 
 
 /**
@@ -15,7 +14,7 @@ use Drupal\oeaw\OeawFunctions;
  * @group oeaw
  */
 
-class OeawFunctionsTest extends \PHPUnit\Framework\TestCase {
+class OeawFunctionsTest extends UnitTestCase {
  
     private $oeawFunctions;
     private $cfgDir;
@@ -25,7 +24,26 @@ class OeawFunctionsTest extends \PHPUnit\Framework\TestCase {
     
     
     protected function setUp() {
-        $this->cfgDir = $_SERVER['TRAVIS_BUILD_DIR']."/drupal/modules/oeaw/config.unittest.ini";
+       $this->cfgDir = $_SERVER['TRAVIS_BUILD_DIR']."/drupal/modules/oeaw/config.unittest.ini";
+        //we need to setup the configfactory with the "oeaw.settings" config, because of
+        // the multilanguage support.
+         $this->config = $this->getMockBuilder('\Drupal\Core\Config\ImmutableConfig')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->configFactory = $this->getMockBuilder('\Drupal\Core\Config\ConfigFactory')
+            ->disableOriginalConstructor()
+            ->getMock();
+        
+        $this->configFactory->expects($this->any())
+            ->method('get')
+            ->with('oeaw.settings')
+            ->willReturn($this->config);
+
+        $this->container = new ContainerBuilder();
+        $this->container->set('config.factory', $this->configFactory);
+        \Drupal::setContainer($this->container);
+        \Drupal::config('oeaw.settings');
         $this->oeawFunctions = new \Drupal\oeaw\OeawFunctions($this->cfgDir);
     }
     
