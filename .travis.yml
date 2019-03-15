@@ -115,7 +115,7 @@ deploy:
     provider: pages
     #script: bash $HOME/build/devility11/commit-remove/deploy.sh
     skip-cleanup: true
-    local-dir: $TRAVIS_BUILD_DIR/drupal/modules/oeaw/src/
+    local-dir: $TRAVIS_BUILD_DIR/drupal/modules/oeaw/
     #local-dir: /
     #local-dir: $HOME/build/devility11/commit-remove/
     github-token: $GITHUB_TOKEN
