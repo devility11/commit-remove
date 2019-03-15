@@ -63,9 +63,11 @@ install:
   - mkdir -p drupal/modules/$MODULE_NAME
   # switched to doing it this way because it makes local testing a bit easier.
   # create symbolic links to all of the files/folders in the module directory  
+  - cp -rf $(pwd)/* drupal/modules/$MODULE_NAME
+  - mkdir -p drupal/modules/oeaw && cp -a oeaw* drupal/modules/oeaw
   #- for d in $(pwd)/*; do ln -s "$d" "drupal/modules/$MODULE_NAME"; done
   # remove the recursive drupal folder from the symlinks
-  - rm -f drupal/modules/$MODULE_NAME/drupal
+  #- rm -f drupal/modules/$MODULE_NAME/drupal
   - cd drupal
 
 before_script:
