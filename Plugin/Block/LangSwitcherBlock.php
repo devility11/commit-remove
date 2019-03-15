@@ -17,24 +17,30 @@ use Drupal\Core\Block\BlockBase;
  *   category = @Translation("Custom oeaw language switcher")
  * )
  */
-class LangSwitcherBlock extends BlockBase {
+class LangSwitcherBlock extends BlockBase
+{
+
     /**
-     * Class block.
-     * 
+     * Class block
+     *
      * @return type
      */
-    public function build() 
+    public function build()
     {
-        if(isset($_SESSION['language'])){ $lang = strtolower($_SESSION['language']); } else { $lang = 'en'; }
-
+        if (isset($_SESSION['language'])) {
+            $lang = strtolower($_SESSION['language']);
+        } else {
+            $lang = "en";
+        }
+        
         $return = array(
             '#theme' => 'oeaw_lng_switcher',
             '#language' => $lang,
             '#attached' => [
                 'library' => [
                 'oeaw/oeaw-styles', //include our custom library for this response
-                ],
-            ],
+                ]
+            ]
         );
         return $return;
     }

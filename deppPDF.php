@@ -9,15 +9,18 @@
 namespace Drupal\oeaw;
 
 use TCPDF;
+
 /**
- * Description of deppPDF.
+ * Description of deppPDF
  *
  * @author nczirjak
  */
-class deppPDF extends TCPDF{
-    public function Header() {
+class deppPDF extends TCPDF
+{
+    public function Header()
+    {
         // Logo
-
+        
         $image_file = 'sites/default/files/OEAW_Logo2_150.png';
         $this->Image($image_file, 10, 10, 15, '', 'PNG', '', 'T', false, 300, '', false, false, 0, false, false, false);
         // Set font
@@ -27,7 +30,8 @@ class deppPDF extends TCPDF{
     }
 
     // Page footer
-    public function Footer() {
+    public function Footer()
+    {
         // Position at 15 mm from bottom
         $this->SetY(-15);
         // Set font

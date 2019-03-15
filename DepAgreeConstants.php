@@ -9,29 +9,31 @@
 namespace Drupal\oeaw;
 
 /**
- * Description of DepAgreeConstants.
+ * Description of DepAgreeConstants
  *
  * @author nczirjak
  */
-class DepAgreeConstants {
-     public static $depTXT = "This agreement is between the organisation or person(s) authorised to transfer and deposit digital resources 
+class DepAgreeConstants
+{
+    public static $depTXT = "This agreement is between the organisation or person(s) authorised to transfer and deposit digital resources 
         (hereinafter ‘the Depositor’) and ACDH-repo (hereinafter ‘the Repository’), which is run and represented by the Austrian Centre for 
         Digital Humanities of the Austrian Academy of Sciences. The agreement concerns transfer, curation, archival, and dissemination of 
         electronic resources described in the section 'Description of Material' <br /><br />"
-            .'<b>Repository</b><br />
+            . "<b>Repository</b><br />
             ACDH-repo<br />
             Austrian Centre for Digital Humanities<br />
             Austrian Academy of Sciences<br />
             Sonnenfelsgasse 19<br />
             1010 Wien<br /><br /><br />
             
-        ';
-
-    public static $descTXT = 'The resources being agreed upon are described below and comprise the Submission Information Package (SIP). '
-            .'A change in the extent of the resources after signing this agreement is only possible by mutual agreement between the Depositor '
-            .'and the Repository. File formats included should adhere to the preferred and accepted formats specified in XXX.'
-            .'<br /><br />'
-            ."For presentation and dissemination the information provided in ‘Description of Material’ might be used.<br /><br />
+        ";
+        
+    
+    public static $descTXT = "The resources being agreed upon are described below and comprise the Submission Information Package (SIP). "
+            . "A change in the extent of the resources after signing this agreement is only possible by mutual agreement between the Depositor "
+            . "and the Repository. File formats included should adhere to the preferred and accepted formats specified in XXX."
+            . "<br /><br />"
+            . "For presentation and dissemination the information provided in ‘Description of Material’ might be used.<br /><br />
         The Depositor and the Repository agree on following procedures to check for data integrityvalidation (please tick as appropriate):        
         
             <input type='checkbox' name='1' val='1'> The donor/depository has provided a tab-delimited text file providing full object paths and filenames for the all objects being submitted, with an MD5 checksum for each object.  The repository will perform automated validation.<br />
@@ -56,7 +58,7 @@ class DepAgreeConstants {
         </ul>
         <br />
         Furthermore the Repository will provide the Depositor with a processing plan in due time.";
-
+        
     public static $transferTXT = 'The Depositor will present data for transfer to the Repository in the formats described above, 
             within a single folder named as below. If possible the Depositor will present data in BagIt format with the filename stated below. 
             Furthermore the Depositor will supply metadata as described in XXX, in the format and to the specifications described there. 
@@ -81,9 +83,9 @@ class DepAgreeConstants {
             <br />
             Where the transfer medium is supplied by the Depositor, the Repository will ensure to return it to the Depositor when it isn’t needed anymore.
             ';
-
-    public static $lastTXT = ''
-            ."For presentation and dissemination the information provided in ‘Description of Material’ might be used.<br /><br /> 
+    
+    public static $lastTXT = ""
+            . "For presentation and dissemination the information provided in ‘Description of Material’ might be used.<br /><br /> 
             The Depositor and the Repository agree on following procedures to check for data completeness and integrity (please tick as appropriate):
             <ul>            
                 <li>The Depositor has provided a file listing full object paths and filenames for the all objects being submitted, with an MD5 checksum for each object.  The Repository will perform automated validation.</li>
@@ -207,9 +209,11 @@ class DepAgreeConstants {
             <br />
             <h2>Jurisdiction</h2>
             The provisions of Austrian law apply to this agreement. Place of jurisdiction is Vienna.
-            ";        
-
-    public static function getPDFLng(string $lng): string {
+            ";
+    
+    
+    public static function getPDFLng(string $lng): string
+    {
         $lngData = array(
             'title' => 'Title',
             'l_name' => 'Last Name',
@@ -259,25 +263,29 @@ class DepAgreeConstants {
             'diss_material_logos' => 'Diss. Mat. Logos',
             'bagit_question' => 'Do you have a bagit file?',
             'material_bagit_file' => 'Bagit File',
-            'material_arrangement_file' => 'Arrangement File',
+            'material_arrangement_file' => 'Arrangement File'
+            
+            
         );
-
-        if(array_key_exists($lng, $lngData)){
+        
+        if (array_key_exists($lng, $lngData)) {
             return $lngData[$lng];
-        }else{
-            foreach($lngData as $key => $val){
-                $lngE = explode('_', $lng);
+        } else {
+            foreach ($lngData as $key => $val) {
+                $lngE = explode("_", $lng);
                 $lngE = end($lngE);
                 $lngN = str_replace('_'.$lngE, '', $lng);
-                if(false !== strpos($key, $lngN)){
+                if (strpos($key, $lngN) !== false) {
                     return $val;
                 }
             }
         }
         return false;
-    }    
-
-    public static function getMaterialLicences(){
+    }
+    
+    
+    public static function getMaterialLicences()
+    {
         $licenes = array(
             'Public Domain Mark' => t('Public Domain Mark'),
             'No Copyright - non commercial re-use only' => t('No Copyright - non commercial re-use only'),
@@ -292,146 +300,152 @@ class DepAgreeConstants {
             'In Copyright' => t('In Copyright'),
             'In Copyright - Educational Use Permitted' => t('In Copyright - Educational Use Permitted'),
             'In Copyright - EU Orphan Work' => t('In Copyright - EU Orphan Work'),
-            'Copyright Not Evaluated' => t('Copyright Not Evaluated'),
+            'Copyright Not Evaluated' => t('Copyright Not Evaluated')
         );
         return $licenes;
     }
-
-    public static function getFileTypes(){
+    
+    public static function getFileTypes()
+    {
         $fileTypes = array();
-        $fileTypes['3DVirtual'] = '3D Data and Virtual Reality';
-        $fileTypes['AudioFiles'] = 'Audio Files';
-        $fileTypes['Database'] = 'DataBase';        
-        $fileTypes['Images'] = 'Images (raster)';        
-        $fileTypes['PDFDocuments'] = 'PDF Documents';
-        $fileTypes['Spreadsheets'] = 'Spreadsheets';
-        $fileTypes['StructFiles'] = 'Structured text files (e. g. XML files)';
-        $fileTypes['TextDocuments'] = 'Text Documents';
-        $fileTypes['VectorImages'] = 'Vector Images';
-        $fileTypes['VideoFiles'] = 'Video Files';
-        $fileTypes['Websites'] = 'Websites';
+        $fileTypes["3DVirtual"] = "3D Data and Virtual Reality";
+        $fileTypes["AudioFiles"] = "Audio Files";
+        $fileTypes["Database"] = "DataBase";
+        $fileTypes["Images"] = "Images (raster)";
+        $fileTypes["PDFDocuments"] = "PDF Documents";
+        $fileTypes["Spreadsheets"] = "Spreadsheets";
+        $fileTypes["StructFiles"] = "Structured text files (e. g. XML files)";
+        $fileTypes["TextDocuments"] = "Text Documents";
+        $fileTypes["VectorImages"] = "Vector Images";
+        $fileTypes["VideoFiles"] = "Video Files";
+        $fileTypes["Websites"] = "Websites";
         return $fileTypes;
     }
-
-    public static function getFileFormats(){
+    
+    public static function getFileFormats()
+    {
         $fileFormats = array();
-        $fileFormats['AAC_MP4'] = 'AAC/MP4';
-        $fileFormats['AI'] = 'AI';
-        $fileFormats['AIFF'] = 'AIFF';
-        $fileFormats['ASF_WMV'] = 'ASF/WMV';
-        $fileFormats['AVI'] = 'AVI';
-        $fileFormats['BAK'] = 'BAK';
-        $fileFormats['BMP'] = 'BMP';
-        $fileFormats['BWF'] = 'BWF';
-        $fileFormats['CGM'] = 'CGM';
-        $fileFormats['COLLADA'] = 'COLLADA';
-        $fileFormats['CPT'] = 'CPT';
-        $fileFormats['CSV'] = 'CSV';
-        $fileFormats['DBF'] = 'DBF';
-        $fileFormats['DNG'] = 'DNG';
-        $fileFormats['DOC'] = 'DOC';
-        $fileFormats['DOCX'] = 'DOCX';
-        $fileFormats['DTD'] = 'DTD';
-        $fileFormats['DWF'] = 'DWF';
-        $fileFormats['DWG'] = 'DWG';
-        $fileFormats['DXF'] = 'DXF';
-        $fileFormats['FLAC'] = 'FLAC';
-        $fileFormats['FLV'] = 'FLV';
-        $fileFormats['FMP'] = 'FMP';
-        $fileFormats['GIF'] = 'GIF';
-        $fileFormats['HTML'] = 'HTML';
-        $fileFormats['JPEG'] = 'JPEG';
-        $fileFormats['JPEG2000'] = 'JPEG2000';
-        $fileFormats['JSON'] = 'JSON';
-        $fileFormats['MAFF'] = 'MAFF';
-        $fileFormats['MDB'] = 'MDB';
-        $fileFormats['MHTML'] = 'MHTML';
-        $fileFormats['MJ2'] = 'MJ2';
-        $fileFormats['MKV'] = 'MKV';
-        $fileFormats['MOV'] = 'MOV';
-        $fileFormats['MP3'] = 'MP3';
-        $fileFormats['MP4'] = 'MP4';
-        $fileFormats['MPEG'] = 'MPEG';
-        $fileFormats['MXF'] = 'MXF';
-        $fileFormats['OBJ'] = 'OBJ';
-        $fileFormats['ODB'] = 'ODB';
-        $fileFormats['ODS'] = 'ODS';
-        $fileFormats['ODT'] = 'ODT';
-        $fileFormats['OGG'] = 'OGG';
-        $fileFormats['PDF (other)'] = 'PDF (other)';
-        $fileFormats['PDF_A-1'] = 'PDF/A-1';
-        $fileFormats['PDF_A-2'] = 'PDF/A-2';
-        $fileFormats['PDF_A-3'] = 'PDF/A-3';
-        $fileFormats['PLY'] = 'PLY';
-        $fileFormats['PNG'] = 'PNG';
-        $fileFormats['PostScript'] = 'PostScript';
-        $fileFormats['PSD'] = 'PSD';
-        $fileFormats['RF64_MBWF'] = 'RF64/MBWF';
-        $fileFormats['RTF'] = 'RTF';
-        $fileFormats['SGML'] = 'SGML';
-        $fileFormats['SIARD'] = 'SIARD';
-        $fileFormats['SQL'] = 'SQL';
-        $fileFormats['STL'] = 'STL';
-        $fileFormats['SVG'] = 'SVG';
-        $fileFormats['SXC'] = 'SXC';
-        $fileFormats['SXW'] = 'SXW';
-        $fileFormats['TIFF'] = 'TIFF';
-        $fileFormats['TSV'] = 'TSV';
-        $fileFormats['TXT'] = 'TXT';
-        $fileFormats['U3D'] = 'U3D';
-        $fileFormats['VRML'] = 'VRML';
-        $fileFormats['WARC'] = 'WARC';
-        $fileFormats['WAV'] = 'WAV';
-        $fileFormats['WMA'] = 'WMA';
-        $fileFormats['X3D'] = 'X3D';
-        $fileFormats['XHTML'] = 'XHTML';
-        $fileFormats['XLS'] = 'XLS';
-        $fileFormats['XLSX'] = 'XLSX';
-        $fileFormats['XML'] = 'XML';
-        $fileFormats['XSD'] = 'XSD';
-
+        $fileFormats["AAC_MP4"]="AAC/MP4";
+        $fileFormats["AI"]="AI";
+        $fileFormats["AIFF"]="AIFF";
+        $fileFormats["ASF_WMV"]="ASF/WMV";
+        $fileFormats["AVI"]="AVI";
+        $fileFormats["BAK"]="BAK";
+        $fileFormats["BMP"]="BMP";
+        $fileFormats["BWF"]="BWF";
+        $fileFormats["CGM"]="CGM";
+        $fileFormats["COLLADA"]="COLLADA";
+        $fileFormats["CPT"]="CPT";
+        $fileFormats["CSV"]="CSV";
+        $fileFormats["DBF"]="DBF";
+        $fileFormats["DNG"]="DNG";
+        $fileFormats["DOC"]="DOC";
+        $fileFormats["DOCX"]="DOCX";
+        $fileFormats["DTD"]="DTD";
+        $fileFormats["DWF"]="DWF";
+        $fileFormats["DWG"]="DWG";
+        $fileFormats["DXF"]="DXF";
+        $fileFormats["FLAC"]="FLAC";
+        $fileFormats["FLV"]="FLV";
+        $fileFormats["FMP"]="FMP";
+        $fileFormats["GIF"]="GIF";
+        $fileFormats["HTML"]="HTML";
+        $fileFormats["JPEG"]="JPEG";
+        $fileFormats["JPEG2000"]="JPEG2000";
+        $fileFormats["JSON"]="JSON";
+        $fileFormats["MAFF"]="MAFF";
+        $fileFormats["MDB"]="MDB";
+        $fileFormats["MHTML"]="MHTML";
+        $fileFormats["MJ2"]="MJ2";
+        $fileFormats["MKV"]="MKV";
+        $fileFormats["MOV"]="MOV";
+        $fileFormats["MP3"]="MP3";
+        $fileFormats["MP4"]="MP4";
+        $fileFormats["MPEG"]="MPEG";
+        $fileFormats["MXF"]="MXF";
+        $fileFormats["OBJ"]="OBJ";
+        $fileFormats["ODB"]="ODB";
+        $fileFormats["ODS"]="ODS";
+        $fileFormats["ODT"]="ODT";
+        $fileFormats["OGG"]="OGG";
+        $fileFormats["PDF (other)"]="PDF (other)";
+        $fileFormats["PDF_A-1"]="PDF/A-1";
+        $fileFormats["PDF_A-2"]="PDF/A-2";
+        $fileFormats["PDF_A-3"]="PDF/A-3";
+        $fileFormats["PLY"]="PLY";
+        $fileFormats["PNG"]="PNG";
+        $fileFormats["PostScript"]="PostScript";
+        $fileFormats["PSD"]="PSD";
+        $fileFormats["RF64_MBWF"]="RF64/MBWF";
+        $fileFormats["RTF"]="RTF";
+        $fileFormats["SGML"]="SGML";
+        $fileFormats["SIARD"]="SIARD";
+        $fileFormats["SQL"]="SQL";
+        $fileFormats["STL"]="STL";
+        $fileFormats["SVG"]="SVG";
+        $fileFormats["SXC"]="SXC";
+        $fileFormats["SXW"]="SXW";
+        $fileFormats["TIFF"]="TIFF";
+        $fileFormats["TSV"]="TSV";
+        $fileFormats["TXT"]="TXT";
+        $fileFormats["U3D"]="U3D";
+        $fileFormats["VRML"]="VRML";
+        $fileFormats["WARC"]="WARC";
+        $fileFormats["WAV"]="WAV";
+        $fileFormats["WMA"]="WMA";
+        $fileFormats["X3D"]="X3D";
+        $fileFormats["XHTML"]="XHTML";
+        $fileFormats["XLS"]="XLS";
+        $fileFormats["XLSX"]="XLSX";
+        $fileFormats["XML"]="XML";
+        $fileFormats["XSD"]="XSD";
+        
         return $fileFormats;
     }
-
-    public static function getTransferMedium(){
+    
+    public static function getTransferMedium()
+    {
         /*$transferMeth = array();
         $transferMeth["UPLOAD"] = "Upload (max. 100MB)";
         $transferMeth["OEAWCLOUD"] = "oeawCloud please provide the URL";
         $transferMeth["LINK"] = "Link to file storage: please provide the URL";
         $transferMeth["PHYSICAL"] = "With physical storage medium: we will contact you to clarify details";
         */
-
+        
         $transferMeth = array(
             'UPLOAD' => t('Upload (max. 100MB)'),
             'OEAWCLOUD' => t('oeawCloud please provide the URL'),
             'LINK' => t('Link to file storage: please provide the URL'),
-            'PHYSICAL' => t('With physical storage medium: we will contact you to clarify details'),
+            'PHYSICAL' => t('With physical storage medium: we will contact you to clarify details')
         );
-
+        
         return $transferMeth;
     }
-
-    public static function getDataValidation(){
+    
+    public static function getDataValidation()
+    {
         $data = array();
-        $data[0] = 'The donor/depository has provided a tab-delimited text file providing full object paths and filenames for the all objects being submitted, with an MD5 checksum for each object.  The repository will perform automated validation.';
-        $data[1] = 'Based on incomplete information supplied by the depositor/donor prior to transfer, the repository will carry out selected content and completeness checks to verify that the transmitted data is what is expected, and that it is complete.';
-        $data[2] = 'No data validation will be performed on objects submitted.';        
+        $data[0] = "The donor/depository has provided a tab-delimited text file providing full object paths and filenames for the all objects being submitted, with an MD5 checksum for each object.  The repository will perform automated validation.";
+        $data[1] = "Based on incomplete information supplied by the depositor/donor prior to transfer, the repository will carry out selected content and completeness checks to verify that the transmitted data is what is expected, and that it is complete.";
+        $data[2] = "No data validation will be performed on objects submitted.";
         return $data;
     }
-
-    public static function getIntegrityChecks(){
+    
+    public static function getIntegrityChecks()
+    {
         $data = array();
-        $data[0] = 'The Depositor has provided a file listing full object paths and filenames for the all objects being submitted, with an MD5 checksum for each object.  The Repository will perform automated validation.';
-        $data[1] = 'Based on incomplete information supplied by the Depositor prior to transfer, the Repository will carry out content and completeness checks to verify that the transmitted data is what is expected, and that it is complete.';
-        $data[2] = 'If no checksums or other information about the data is provided by the Depositor, the Repository cannot perform any integrity checks on submitted data.';        
+        $data[0] = "The Depositor has provided a file listing full object paths and filenames for the all objects being submitted, with an MD5 checksum for each object.  The Repository will perform automated validation.";
+        $data[1] = "Based on incomplete information supplied by the Depositor prior to transfer, the Repository will carry out content and completeness checks to verify that the transmitted data is what is expected, and that it is complete.";
+        $data[2] = "If no checksums or other information about the data is provided by the Depositor, the Repository cannot perform any integrity checks on submitted data.";
         return $data;
     }
-
-    public static function getAccessMode(){
+    
+    public static function getAccessMode()
+    {
         $data = array();
-        $data['PUB'] = 'Public content (PUB): free access to the general public without any restriction. The classification of a resource as public content does not mean that the resources may be used for any purpose. The permissible types of use are further detailed by the licence accompanying every resource.';
-        $data['ACA'] = 'Academic content (ACA): to access the resource the user has to register as an academic user. This is accomplished by authentication with the home identity provider by means of the Identity Federation.';
-        $data['RES'] = 'Restricted content (RES): includes resources with a special access mode. Special authorisation rules apply that are detailed in the accompanying metadata record.';        
+        $data['PUB'] = "Public content (PUB): free access to the general public without any restriction. The classification of a resource as public content does not mean that the resources may be used for any purpose. The permissible types of use are further detailed by the licence accompanying every resource.";
+        $data['ACA'] = "Academic content (ACA): to access the resource the user has to register as an academic user. This is accomplished by authentication with the home identity provider by means of the Identity Federation.";
+        $data['RES'] = "Restricted content (RES): includes resources with a special access mode. Special authorisation rules apply that are detailed in the accompanying metadata record.";
         return $data;
     }
 }

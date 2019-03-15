@@ -5,12 +5,18 @@ namespace Drupal\oeaw\Plugin\rest\resource;
 use Drupal\rest\Plugin\ResourceBase;
 use Drupal\rest\ResourceResponse;
 // our drupal custom libraries
+use Drupal\oeaw\Model\OeawStorage;
+use Drupal\oeaw\Model\OeawCustomSparql;
 
 //ARCHE ACDH libraries
+use acdhOeaw\util\RepoConfig as RC;
+use acdhOeaw\fedora\Fedora;
+use acdhOeaw\fedora\FedoraResource;
+use EasyRdf\Graph;
 use EasyRdf\Resource;
 
 /**
- * Provides an Publications Checker Resource.
+ * Provides an Publications Checker Resource
  *
  * @RestResource(
  *   id = "api_cacheontology",
@@ -20,22 +26,25 @@ use EasyRdf\Resource;
  *   }
  * )
  */
-class APICacheOntologyResource extends ResourceBase {
+class APICacheOntologyResource extends ResourceBase
+{
+    
+    
     /**
-     * Responds to entity GET requests.
-     * 
-     * @return \Drupal\rest\ResourceResponse
-     */
-    public function get() {
+    * Responds to entity GET requests.
+     *
+    * @return \Drupal\rest\ResourceResponse
+    */
+    public function get()
+    {
         $response = array();
-
+                 
         $PTC = new \Drupal\oeaw\PropertyTableCache();
-        if(true == $PTC->setCacheData()){
-            $response = json_encode('cache updated succesfully!');
-        }else {
-            $response = json_encode('there is no ontology data to cache!');
+        if ($PTC->setCacheData() == true) {
+            $response = json_encode("cache updated succesfully!");
+        } else {
+            $response = json_encode("there is no ontology data to cache!");
         }
         return new ResourceResponse($response);
     }
 }
-

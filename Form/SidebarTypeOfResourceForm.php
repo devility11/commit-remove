@@ -4,6 +4,12 @@ namespace Drupal\oeaw\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
+use Drupal\Core\Link;
+use Drupal\Core\Session\AccountInterface;
+use Drupal\Core\Session\SessionManagerInterface;
+use Drupal\user\PrivateTempStoreFactory;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\oeaw\Model\OeawStorage;
 use Drupal\oeaw\OeawFunctions;
 
@@ -11,116 +17,124 @@ class SidebarTypeOfResourceForm extends FormBase
 {
     private $oeawStorage;
     private $oeawFunctions;
-
-    public function __construct() {
+    
+    public function __construct()
+    {
         $this->oeawStorage = new OeawStorage();
         $this->oeawFunctions = new OeawFunctions();
     }
-
+    
     public function getFormId()
     {
-        return 'stor_form';
+        return "stor_form";
     }
-
+    
     /*
     * {@inheritdoc}.
     */
-    public function buildForm(array $form, FormStateInterface $form_state) 
+    public function buildForm(array $form, FormStateInterface $form_state)
     {
-        echo 'side bar typeof res';
+        echo "side bar typeof res";
         try {
             $data = $this->oeawStorage->getClassesForSideBar();
         } catch (\ErrorException $ex) {
             drupal_set_message($ex->getMessage(), 'error');
             return array();
         }
-
+        
         $searchClasses = array();
-
-        if(0 == count($data)){
+        
+        if (count($data) == 0) {
             drupal_set_message($this->t('Database').' '.t('Empty'), 'error');
             return $form;
         } else {
-            // get the fields from the sparql query 
+            // get the fields from the sparql query
             $fields = array_keys($data[0]);
 
-            $searchTerms = $this->oeawFunctions->createPrefixesFromArray($data, $fields);        
+            $searchTerms = $this->oeawFunctions->createPrefixesFromArray($data, $fields);
 
             $i = 0;
-            foreach($searchTerms['type'] as $v){
-	            $searchClasses[$i]['type'] = $v;
-	            $searchClasses[$i]['value'] = $searchTerms['typeCount'][$i];
-                ++$i;
+            foreach ($searchTerms["type"] as $v) {
+                $searchClasses[$i]["type"] = $v;
+                $searchClasses[$i]["value"] = $searchTerms["typeCount"][$i];
+                $i++;
             }
             asort($searchClasses);
-
+            
             // If there was a keyword search already, use it in the input as value
             $fullpath = $_SERVER['REQUEST_URI'];
-            $fullpath = explode('/', $fullpath);
-            if (3 == count($fullpath)) {
+            $fullpath = explode("/", $fullpath);
+            if (count($fullpath) == 3) {
                 $defaultterm = end($fullpath);
                 $actionterm = prev($fullpath);
-                if ('oeaw_classes_result' != $actionterm) {
-	               $defaultterm = '';
+                if ($actionterm != "oeaw_classes_result") {
+                    $defaultterm = "";
                 }
             } else {
-                $defaultterm = '';
-            }	
+                $defaultterm = "";
+            }
+           
 
             $i = 0;
-            $lbl = '';
-            $count = '';
+            $lbl = "";
+            $count = "";
 
-            foreach($searchClasses as $value){
-                foreach($value as $k => $v){
-                    if('type' == $k){ $lbl = $v; }
-                    if('value' == $k){ $count = $v; }
-
-                    if (preg_match('/^acdh:/', $lbl)) {
+            foreach ($searchClasses as $value) {
+                foreach ($value as $k => $v) {
+                    if ($k == "type") {
+                        $lbl = $v;
+                    }
+                    if ($k == "value") {
+                        $count = $v;
+                    }
+                    
+                    if (preg_match("/^acdh:/", $lbl)) {
                         $label = explode('acdh:', $lbl)[1];
-                        $labelReadable = preg_replace('/(?<! )(?<!^)[A-Z]/',' $0', $label);               
-
+                        $labelReadable = preg_replace('/(?<! )(?<!^)[A-Z]/', ' $0', $label);
+                        
                         $termencoded = base64_encode($lbl);
                         if ($defaultterm == $termencoded) {
-                            $checked = TRUE;
+                            $checked = true;
                         } else {
-                            $checked = FALSE;
+                            $checked = false;
                         }
 
                         $form['checkbox-'.$label] = array(
                             '#type' => 'container',
                             '#attributes' => array(
                                 'class' => array('form-checkbox-custom'),
-                                'onClick' => 'window.location = "'.base_path().'oeaw_classes_result/'.base64_encode($lbl).'/10/0";',
-                            ),
+                                'onClick' => 'window.location = "'.base_path().'oeaw_classes_result/'.base64_encode($lbl).'/10/0";'
+                            )
                         );
-
+        
                         $form['checkbox-'.$label]['checkbox'] = array(
                             '#type' => 'checkbox',
-                            '#title' => $this->t($labelReadable.' ('.$count.')'),
+                            '#title' => $this->t($labelReadable." (".$count.")"),
                             '#attributes' => array(
                                 'class' => array('checkbox-custom'),
-                                'id' => array('checkbox-'.$label),
+                                'id' => array('checkbox-'.$label)
                             ),
-                            '#default_value' => $checked,
+                            '#default_value' => $checked
                         );
                     }
                 }
-                ++$i;
+                $i++;
             }
             return $form;
         }
-    }    
-
-    public function validateForm(array &$form, FormStateInterface $form_state) 
+    }
+    
+    
+    public function validateForm(array &$form, FormStateInterface $form_state)
     {
-    }    
-
-    public function submitForm(array &$form, FormStateInterface $form_state) {
+    }
+    
+  
+    public function submitForm(array &$form, FormStateInterface $form_state)
+    {
         $metavalue = $form_state->getValue('metavalue');
         //$metavalue = base64_encode($metavalue);
-        $metavalue = urlencode($metavalue);        
-        $form_state->setRedirect('oeaw_keywordsearch', ['metavalue' => $metavalue]);
+        $metavalue = urlencode($metavalue);
+        $form_state->setRedirect('oeaw_keywordsearch', ["metavalue" => $metavalue]);
     }
 }
-
