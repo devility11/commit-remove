@@ -3,7 +3,7 @@
 
 declare(strict_types=1);
 include($_SERVER['HOME'].'/drupal/modules/oeaw/src/OeawFunctions.php');
-require_once $_SERVER['HOME'].'/drupal/vendor/autoload.php';
+require_once $_SERVER['HOME'].'/vendor/autoload.php';
 
 namespace Drupal\Tests\oeaw\Unit;
 //use PHPUnit\Framework\TestCase;

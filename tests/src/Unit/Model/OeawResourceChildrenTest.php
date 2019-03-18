@@ -1,5 +1,6 @@
 <?php
-require_once '/var/www/html/vendor/autoload.php';
+
+include($_SERVER['TRAVIS_BUILD_DIR'].'/drupal/vendor/autoload.php');
 
 namespace Drupal\Tests\oeaw\Model\OeawResourceTest;
 namespace Drupal\oeaw\Model;
