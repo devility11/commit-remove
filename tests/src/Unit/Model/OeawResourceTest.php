@@ -3,18 +3,18 @@
 namespace Drupal\Tests\oeaw\Model\OeawResourceTest;
 namespace Drupal\oeaw\Model;
 
-use PHPUnit\Framework\TestCase;
+#use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use acdhOeaw\util\RepoConfig as RC;
 
-require_once '/var/www/html/vendor/autoload.php';
+
 
 /**
  * @coversDefaultClass \Drupal\oeaw\Model\OeawResource
  * @group oeaw
  */
 
-class OeawResourceTest extends TestCase
+class OeawResourceTest
 {
     private static $arrayObject;
     private $cfgDir = '/var/www/html/modules/oeaw/config.ini';

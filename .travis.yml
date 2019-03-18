@@ -103,13 +103,11 @@ before_script:
 
 script:
   - composer run-script drupal-phpunit-upgrade  
-  - ls -la vendor
-  - ls -la modules/oeaw/tests/src/Unit
-  - ls -la $TRAVIS_BUILD_DIR/drupal/vendor
+  
   # PHP Unit Tests  
   - $HOME/.composer/vendor/bin/phpunit -c core/phpunit.xml.dist modules/oeaw/tests/src/Unit/Model/OeawResourceChildrenTest.php
-  - $TRAVIS_BUILD_DIR/drupal/vendor/bin/phpunit -c core/phpunit.xml.dist $TRAVIS_BUILD_DIR/drupal/modules/oeaw/tests/src/Unit/Model/OeawResourceChildrenTest.php
-  - drupal/vendor/bin/phpunit -c drupal/web/core drupal/web/modules/oeaw/tests/src/Unit/Model/OeawResourceChildrenTest.php
+  - $TRAVIS_BUILD_DIR/drupal/vendor/bin/phpunit -c core/phpunit.xml.dist $TRAVIS_BUILD_DIR/drupal/modules/oeaw/tests/src/Unit/Model/OeawResourceTest.php
+  
   #- $HOME/.composer/vendor/bin/phpunit -c core/phpunit.xml.dist modules/oeaw/tests/src/Unit/Model/OeawResourceCustomDataTest.php
   #- $HOME/.composer/vendor/bin/phpunit -c core/phpunit.xml.dist modules/oeaw/tests/src/Unit/Model/OeawResourceTest.php
   #- $HOME/.composer/vendor/bin/phpunit -c core/phpunit.xml.dist modules/oeaw/tests/src/Unit/OeawFunctionsTest.php

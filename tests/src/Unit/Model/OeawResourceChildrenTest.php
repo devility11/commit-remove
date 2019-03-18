@@ -1,4 +1,5 @@
 <?php
+require_once '/var/www/html/vendor/autoload.php';
 
 namespace Drupal\Tests\oeaw\Model;
 #namespace Drupal\oeaw\Model;
@@ -6,13 +7,14 @@ namespace Drupal\Tests\oeaw\Model;
 #use Drupal\Tests\UnitTestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use acdhOeaw\util\RepoConfig as RC;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @coversDefaultClass \Drupal\oeaw\Model\OeawResourceChildren
  * @group oeaw
  */
 
-class OeawResourceChildrenTest 
+class OeawResourceChildrenTest extends \PHPUnit\Framework\TestCase 
 {
     private static $arrayObject;
     private $cfgDir = '/var/www/html/modules/oeaw/config.ini';
