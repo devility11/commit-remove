@@ -1,14 +1,13 @@
 <?php
 
 namespace Drupal\Tests\oeaw\Model\OeawResourceTest;
-
 namespace Drupal\oeaw\Model;
 
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use acdhOeaw\util\RepoConfig as RC;
 
-require_once $_SERVER['HOME'].'/html/vendor/autoload.php';
+require_once '/var/www/html/vendor/autoload.php';
 
 /**
  * @coversDefaultClass \Drupal\oeaw\Model\OeawResource
