@@ -103,7 +103,7 @@ before_script:
 
 script:
   - composer run-script drupal-phpunit-upgrade  
-  - php -f "echo $HOME" 
+  - php -f modules/oeaw/tests/src/Unit/info.php
   # PHP Unit Tests  
   - $HOME/.composer/vendor/bin/phpunit -c core/phpunit.xml.dist modules/oeaw/tests/src/Unit/Model/OeawResourceChildrenTest.php
   #- $HOME/.composer/vendor/bin/phpunit -c core/phpunit.xml.dist modules/oeaw/tests/src/Unit/Model/OeawResourceCustomDataTest.php
