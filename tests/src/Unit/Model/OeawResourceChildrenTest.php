@@ -15,7 +15,7 @@ require_once $_SERVER['HOME'].'/html/vendor/autoload.php';
  * @group oeaw
  */
 
-class OeawResourceChildrenTest extends UnitTestCase
+class OeawResourceChildrenTest extends Drupal\Tests\UnitTestCase
 {
     private static $arrayObject;
     private $cfgDir = '/var/www/html/modules/oeaw/config.ini';
