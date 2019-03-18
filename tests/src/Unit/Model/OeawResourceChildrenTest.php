@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 
 namespace Drupal\Tests\oeaw\Model;
 #namespace Drupal\oeaw\Model;
@@ -16,7 +16,7 @@ require_once '/var/www/html/vendor/autoload.php';
  * @group oeaw
  */
 
-class OeawResourceChildrenTest extends \PHPUnit\Framework\TestCase 
+class OeawResourceChildrenTest extends TestCase 
 {
     private static $arrayObject;
     private $cfgDir = '/var/www/html/modules/oeaw/config.ini';
