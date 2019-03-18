@@ -1,25 +1,21 @@
 <?php
-declare(strict_types=1);
 
-namespace Drupal\Tests\oeaw\Model;
-#namespace Drupal\oeaw\Model;
+namespace Drupal\Tests\oeaw\Model\OeawResourceTest;
+namespace Drupal\oeaw\Model;
 
-#use Drupal\Tests\UnitTestCase;
+use Drupal\Tests\UnitTestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use acdhOeaw\util\RepoConfig as RC;
-use PHPUnit\Framework\TestCase;
-
-require_once '/var/www/html/vendor/autoload.php';
 
 /**
  * @coversDefaultClass \Drupal\oeaw\Model\OeawResourceChildren
  * @group oeaw
  */
 
-class OeawResourceChildrenTest extends TestCase 
-{
-    private static $arrayObject;
-    private $cfgDir = '/var/www/html/modules/oeaw/config.ini';
+class OeawResourceChildrenTest extends UnitTestCase {
+    
+    static private $arrayObject;
+    private $cfgDir;
     
     /**
     * Shadow t() system call.
@@ -29,16 +25,15 @@ class OeawResourceChildrenTest extends TestCase
     *
     * @return string
     */
-    public function t($string)
-    {
+    public function t($string) {
         return $string;
     }
     
-    protected function setUp()
-    {                
+    protected function setUp() {
+        $this->cfgDir = $_SERVER['TRAVIS_BUILD_DIR']."/drupal/modules/oeaw/config.unittest.ini";
         //we need to setup the configfactory with the "oeaw.settings" config, because of
         // the multilanguage support.
-        $this->config = $this->getMockBuilder('\Drupal\Core\Config\ImmutableConfig')
+         $this->config = $this->getMockBuilder('\Drupal\Core\Config\ImmutableConfig')
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -58,8 +53,7 @@ class OeawResourceChildrenTest extends TestCase
     }
     
     
-    public static function setUpBeforeClass()
-    {
+    static public function setUpBeforeClass() {
         self::$arrayObject = new \ArrayObject();
         self::$arrayObject->offsetSet('uri', 'http://localhost');
         self::$arrayObject->offsetSet('title', 'title');
@@ -70,16 +64,14 @@ class OeawResourceChildrenTest extends TestCase
         self::$arrayObject->offsetSet('typeName', 'Collection');
     }
     
-    public function testInitialization() : \Drupal\oeaw\Model\OeawResourceChildren
-    {
+    public function testInitialization() : \Drupal\oeaw\Model\OeawResourceChildren {
         $obj = new \Drupal\oeaw\Model\OeawResourceChildren(self::$arrayObject, $this->cfgDir);
         $this->assertInstanceOf(\Drupal\oeaw\Model\OeawResourceChildren::class, $obj);
         return $obj;
     }
    
     
-    public function testFalseInitialization()
-    {
+    public function testFalseInitialization() {
         self::$arrayObject->offsetSet('typeName', '');
         $this->expectException(\Error::class);
         $obj = new \Drupal\oeaw\Model\OeawResourceChildren(self::$arrayObject);
@@ -88,100 +80,93 @@ class OeawResourceChildrenTest extends TestCase
     /**
      * @depends testInitialization
      */
-    public function testGetUri($obj)
-    {
+    public function testGetUri($obj) {
         $uri = $obj->getUri();
         $this->assertNotEmpty($uri);
-        $this->assertInternalType('string', $uri);
-        $this->assertRegExp('/http/i', $uri);
+        $this->assertInternalType('string',$uri);
+        $this->assertRegExp('/http/i',$uri);
     }
     
     /**
      * @depends testInitialization
      */
-    public function testGetInsideUri($obj)
-    {
+    public function testGetInsideUri($obj) {
         $insideUri = $obj->getInsideUri();
         $this->assertNotEmpty($insideUri);
-        $this->assertInternalType('string', $insideUri);
-        $this->assertRegExp('/id.acdh.oeaw.ac.at/i', $insideUri);
+        $this->assertInternalType('string',$insideUri);
+        $this->assertRegExp('/id.acdh.oeaw.ac.at/i',$insideUri);
     }
     
     /**
      * @depends testInitialization
      */
-    public function testGetIdentifier($obj)
-    {
+    public function testGetIdentifier($obj) {
         $data = $obj->getIdentifier();
         $this->assertNotEmpty($data);
-        $this->assertInternalType('string', $data);
-        $this->assertRegExp('/id.acdh.oeaw.ac.at/i', $data);
-    }
+        $this->assertInternalType('string',$data);
+        $this->assertRegExp('/id.acdh.oeaw.ac.at/i',$data);
+    }        
         
     /**
      * @depends testInitialization
      */
-    public function testGetTitle($obj)
-    {
+    public function testGetTitle($obj) {
         $data = $obj->getTitle();
         $this->assertNotEmpty($data);
-        $this->assertInternalType('string', $data);
+        $this->assertInternalType('string',$data);
     }
     
     /**
      * @depends testInitialization
      */
-    public function testGetTypeName($obj)
-    {
+    public function testGetTypeName($obj) {
         $data = $obj->getTypeName();
         $this->assertNotEmpty($data);
-        $this->assertInternalType('string', $data);
+        $this->assertInternalType('string',$data);
     }
     
     /**
      * @depends testInitialization
      */
-    public function testGetTypeUri($obj)
-    {
+    public function testGetTypeUri($obj) {
         $data = $obj->getTypeUri();
         $this->assertNotEmpty($data);
-        $this->assertInternalType('string', $data);
-        $this->assertRegExp('/http/i', $data);
+        $this->assertInternalType('string',$data);
+        $this->assertRegExp('/http/i',$data);
     }
     /**
      * @depends testInitialization
      */
-    public function testGetDescription($obj)
-    {
+    public function testGetDescription($obj) {
         $data = $obj->getDescription();
-        if (!empty($data)) {
+        if(!empty($data)) {
             $this->assertNotEmpty($data);
-            $this->assertInternalType('string', $data);
+            $this->assertInternalType('string',$data);
         } else {
             $this->assertEmpty($data);
         }
     }
     /**
      * @depends testInitialization
-     */
-    public function testGetPID($obj)
-    {
+     */        
+    public function testGetPID($obj) {
         $data = $obj->getPID();
-        if (!empty($data)) {
+        if(!empty($data)) {
             $this->assertNotEmpty($data);
-            $this->assertInternalType('string', $data);
-            $this->assertRegExp('http/i', $data);
+            $this->assertInternalType('string',$data);
+            $this->assertRegExp('http/i',$data);
         } else {
             $this->assertEmpty($data);
         }
     }
     /**
      * @depends testInitialization
-     */
-    public function testGetAccessRestriction($obj)
-    {
+     */        
+    public function testGetAccessRestriction($obj) {
         $data = $obj->getAccessRestriction();
         $this->assertNotEmpty($data);
-        $this->assertInternalType('string', $data);
+        $this->assertInternalType('string',$data);
     }
+   
 }
+
