@@ -1,21 +1,18 @@
 <?php
 
-include($_SERVER['TRAVIS_BUILD_DIR'].'/drupal/vendor/autoload.php');
-
-namespace Drupal\Tests\oeaw\Model\OeawResourceTest;
-namespace Drupal\oeaw\Model;
+namespace Drupal\Tests\oeaw\Model;
+#namespace Drupal\oeaw\Model;
 
 use Drupal\Tests\UnitTestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use acdhOeaw\util\RepoConfig as RC;
-
 
 /**
  * @coversDefaultClass \Drupal\oeaw\Model\OeawResourceChildren
  * @group oeaw
  */
 
-class OeawResourceChildrenTest extends Drupal\Tests\UnitTestCase
+class OeawResourceChildrenTest extends UnitTestCase
 {
     private static $arrayObject;
     private $cfgDir = '/var/www/html/modules/oeaw/config.ini';

@@ -108,9 +108,10 @@ script:
   - ls -la $TRAVIS_BUILD_DIR/drupal/vendor
   # PHP Unit Tests  
   - $HOME/.composer/vendor/bin/phpunit -c core/phpunit.xml.dist modules/oeaw/tests/src/Unit/Model/OeawResourceChildrenTest.php
+  - $TRAVIS_BUILD_DIR/drupal/vendor/bin/phpunit -c core/phpunit.xml.dist $TRAVIS_BUILD_DIR/drupal/modules/oeaw/tests/src/Unit/Model/OeawResourceChildrenTest.php
   #- $HOME/.composer/vendor/bin/phpunit -c core/phpunit.xml.dist modules/oeaw/tests/src/Unit/Model/OeawResourceCustomDataTest.php
-  - $HOME/.composer/vendor/bin/phpunit -c core/phpunit.xml.dist modules/oeaw/tests/src/Unit/Model/OeawResourceTest.php
-  - $HOME/.composer/vendor/bin/phpunit -c core/phpunit.xml.dist modules/oeaw/tests/src/Unit/OeawFunctionsTest.php
+  #- $HOME/.composer/vendor/bin/phpunit -c core/phpunit.xml.dist modules/oeaw/tests/src/Unit/Model/OeawResourceTest.php
+  #- $HOME/.composer/vendor/bin/phpunit -c core/phpunit.xml.dist modules/oeaw/tests/src/Unit/OeawFunctionsTest.php
 
 
 after_success:  
