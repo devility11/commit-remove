@@ -12,7 +12,7 @@ use acdhOeaw\util\RepoConfig as RC;
  * @group oeaw
  */
 
-class OeawResourceChildrenTest extends UnitTestCase
+class OeawResourceChildrenTest 
 {
     private static $arrayObject;
     private $cfgDir = '/var/www/html/modules/oeaw/config.ini';
