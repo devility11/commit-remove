@@ -31,7 +31,7 @@ class OeawResourceCustomDataTest extends UnitTestCase
     }
     
   protected function setUp() {
-        $this->cfgDir = $_SERVER['TRAVIS_BUILD_DIR']."/config.unittest.ini";
+        $this->cfgDir = $_SERVER['TRAVIS_BUILD_DIR']."/drupal/modules/oeaw/config.unittest.ini";
         //we need to setup the configfactory with the "oeaw.settings" config, because of
         // the multilanguage support.
          $this->config = $this->getMockBuilder('\Drupal\Core\Config\ImmutableConfig')
@@ -79,7 +79,7 @@ class OeawResourceCustomDataTest extends UnitTestCase
     {
         self::$arrayObject->offsetSet('type', '');
         $this->expectException(\Error::class);
-        $obj = new \Drupal\oeaw\Model\OeawResourceCustomData(self::$arrayObject);
+        $obj = new \Drupal\oeaw\Model\OeawResourceCustomData(self::$arrayObject, $this->cfgDir);
     }
     
     /**
