@@ -1,11 +1,14 @@
 <?php
 
 namespace Drupal\Tests\oeaw\Model\OeawResourceTest;
+
 namespace Drupal\oeaw\Model;
 
 use Drupal\Tests\UnitTestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use acdhOeaw\util\RepoConfig as RC;
+
+require_once $_SERVER['HOME'].'/html/vendor/autoload.php';
 
 /**
  * @coversDefaultClass \Drupal\oeaw\Model\OeawResource
@@ -14,8 +17,8 @@ use acdhOeaw\util\RepoConfig as RC;
 
 class OeawResourceTest extends UnitTestCase
 {
-    static private $arrayObject;
-    private $cfgDir;
+    private static $arrayObject;
+    private $cfgDir = '/var/www/html/modules/oeaw/config.ini';
         
     /**
     * Shadow t() system call.
@@ -36,11 +39,11 @@ class OeawResourceTest extends UnitTestCase
         return $d && $d->format($format) === $date;
     }
     
-    protected function setUp() {
-        $this->cfgDir = $_SERVER['TRAVIS_BUILD_DIR']."/drupal/modules/oeaw/config.unittest.ini";
+    protected function setUp()
+    {
         //we need to setup the configfactory with the "oeaw.settings" config, because of
         // the multilanguage support.
-         $this->config = $this->getMockBuilder('\Drupal\Core\Config\ImmutableConfig')
+        $this->config = $this->getMockBuilder('\Drupal\Core\Config\ImmutableConfig')
             ->disableOriginalConstructor()
             ->getMock();
 
