@@ -15,7 +15,6 @@ env:
     - CODER_VERSION='8.*'
 
 
-
 # Cache Composer & Drush directories.
 cache:
   bundler: true
@@ -67,6 +66,8 @@ install:
   # switched to doing it this way because it makes local testing a bit easier.
   # create symbolic links to all of the files/folders in the module directory
   - for d in $(pwd)/*; do ln -s "$d" "drupal/modules/$MODULE_NAME"; done
+  
+  # create directory with the code for the codefixing
   - mkdir -p drupal/modules/_oeaw
   - git clone $MODUL_REPO drupal/modules/_oeaw/.
 
@@ -84,9 +85,7 @@ before_script:
   - mysql -e 'create database drupal;'  
   - cd $TRAVIS_BUILD_DIR/drupal && drush --yes site-install standard --db-url="mysql://root@127.0.0.1/drupal"
 
-  # Dependency Modules
-  #- cp -pr $TRAVIS_BUILD_DIR/* $TRAVIS_BUILD_DIR/drupal/modules/oeaw
-  - cd $TRAVIS_BUILD_DIR/drupal && drush --yes en $MODULE_NAME
+  # Dependency Modules  
   - cd $TRAVIS_BUILD_DIR/drupal && drush --yes en simpletest
 
   # Export web server URL for browser tests.
@@ -102,16 +101,13 @@ before_script:
    
 
 script:
-
   - composer run-script drupal-phpunit-upgrade  
 
   # PHP Unit Tests  
   - $HOME/.composer/vendor/bin/phpunit -c core/phpunit.xml.dist modules/oeaw/tests/src/Unit/Model/OeawResourceChildrenTest.php
   - $HOME/.composer/vendor/bin/phpunit -c core/phpunit.xml.dist modules/oeaw/tests/src/Unit/Model/OeawResourceCustomDataTest.php
   - $HOME/.composer/vendor/bin/phpunit -c core/phpunit.xml.dist modules/oeaw/tests/src/Unit/Model/OeawResourceTest.php
-  #- $HOME/.composer/vendor/bin/phpunit -c core/phpunit.xml.dist modules/oeaw/tests/src/Unit/OeawFunctionsTest.php
-  #- $HOME/.composer/vendor/bin/php-cs-fixer fix --rules="@Symfony,-blank_line_before_statement,-@PSR2,-@PSR1" $TRAVIS_BUILD_DIR/drupal/modules/_oeaw/src/
-  
+  - $HOME/.composer/vendor/bin/phpunit -c core/phpunit.xml.dist modules/oeaw/tests/src/Unit/OeawFunctionsTest.php
   
 after_success:
   - $HOME/.composer/vendor/bin/php-cs-fixer fix $TRAVIS_BUILD_DIR/drupal/modules/_oeaw
@@ -119,13 +115,10 @@ after_success:
 
 deploy:
     provider: pages
-    #script: bash $HOME/build/devility11/commit-remove/deploy.sh
     skip-cleanup: true
-    local-dir: $TRAVIS_BUILD_DIR/drupal/modules/_oeaw
-    #local-dir: /
-    #local-dir: $HOME/build/devility11/commit-remove/
+    local-dir: $TRAVIS_BUILD_DIR/drupal/modules/_oeaw    
     github-token: $GITHUB_TOKEN
-    target-branch: live
+    target-branch: master
     #if it is false then Travis CI will delete all the files created during the build, which will probably delete what you are trying to upload.
     keep-history: true
     on:        

@@ -1,13 +1,13 @@
 <?php
 
-
 declare(strict_types=1);
-include($_SERVER['HOME'].'/drupal/modules/oeaw/src/OeawFunctions.php');
-require_once $_SERVER['HOME'].'/vendor/autoload.php';
 
-namespace Drupal\Tests\oeaw\Unit;
-//use PHPUnit\Framework\TestCase;
+namespace Drupal\Tests\oeaw\Model\OeawFunctionsTest;
+namespace Drupal\oeaw\Model;
+
 use Drupal\Tests\UnitTestCase;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use acdhOeaw\util\RepoConfig as RC;
 
 
 /**
@@ -15,19 +15,38 @@ use Drupal\Tests\UnitTestCase;
  * @group oeaw
  */
 
-class OeawFunctions extends UnitTestCase
+class OeawFunctionsTest extends UnitTestCase
 {
-    private $oeawFunctions;
-    private $cfgDir = '/home/vagrant/drupal/modules/oeaw/config.ini';
+    private $oeawFunctions;    
+    private $cfgDir;
     private $acdhId = 'https://id.acdh.oeaw.ac.at/myidentifier';
     private $acdhUUID = 'https://id.acdh.oeaw.ac.at/uuid/myidentifier';
     private $pid = 'http://hdl.handle.net/21.11115/0000-0000';
     
-    
-    protected function setUp()
-    {
+    protected function setUp() {
+        $this->cfgDir = $_SERVER['TRAVIS_BUILD_DIR']."/drupal/modules/oeaw/config.unittest.ini";
+        //we need to setup the configfactory with the "oeaw.settings" config, because of
+        // the multilanguage support.
+         $this->config = $this->getMockBuilder('\Drupal\Core\Config\ImmutableConfig')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->configFactory = $this->getMockBuilder('\Drupal\Core\Config\ConfigFactory')
+            ->disableOriginalConstructor()
+            ->getMock();
+        
+        $this->configFactory->expects($this->any())
+            ->method('get')
+            ->with('oeaw.settings')
+            ->willReturn($this->config);
+
+        $this->container = new ContainerBuilder();
+        $this->container->set('config.factory', $this->configFactory);
+        \Drupal::setContainer($this->container);
+        \Drupal::config('oeaw.settings');
         $this->oeawFunctions = new \Drupal\oeaw\OeawFunctions($this->cfgDir);
     }
+    
     
     public function testCreateDetailViewUrlAcdhID()
     {

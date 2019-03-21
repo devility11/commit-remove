@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\Tests\oeaw\Model\OeawResourceTest;
+namespace Drupal\Tests\oeaw\Model\OeawResourceChildrenTest;
 namespace Drupal\oeaw\Model;
 
 use Drupal\Tests\UnitTestCase;
