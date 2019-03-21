@@ -7,8 +7,6 @@ use Drupal\Tests\UnitTestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use acdhOeaw\util\RepoConfig as RC;
 
-
-
 /**
  * @coversDefaultClass \Drupal\oeaw\Model\OeawResourceCustomData
  * @group oeaw
@@ -71,7 +69,7 @@ class OeawResourceCustomDataTest extends UnitTestCase
     
     public function testInitialization() : \Drupal\oeaw\Model\OeawResourceCustomData
     {
-        $obj = new \Drupal\oeaw\Model\OeawResourceCustomData(self::$arrayObject, $this->cfgDir);
+        $obj = new \Drupal\oeaw\Model\OeawResourceCustomData(self::$arrayObject);
         $this->assertInstanceOf(\Drupal\oeaw\Model\OeawResourceCustomData::class, $obj);
         return $obj;
     }
@@ -81,7 +79,7 @@ class OeawResourceCustomDataTest extends UnitTestCase
     {
         self::$arrayObject->offsetSet('type', '');
         $this->expectException(\Error::class);
-        $obj = new \Drupal\oeaw\Model\OeawResourceCustomData(self::$arrayObject, $this->cfgDir);
+        $obj = new \Drupal\oeaw\Model\OeawResourceCustomData(self::$arrayObject);
     }
     
     /**
